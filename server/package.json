@@ -1,0 +1,25 @@
+{
+  "name": "letter-soup",
+  "version": "1.0.0",
+  "description": "Puzzle based educational game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IvayloBanchevski/letter-soup.git"
+  },
+  "keywords": [
+    "puzzle",
+    "letters",
+    "word-soup",
+    "letter-soup"
+  ],
+  "author": "Ivaylo Banchevski, Kiril Stoyanov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IvayloBanchevski/letter-soup/issues"
+  },
+  "homepage": "https://github.com/IvayloBanchevski/letter-soup#readme"
+}
