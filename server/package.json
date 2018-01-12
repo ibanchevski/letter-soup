@@ -4,7 +4,9 @@
   "description": "Puzzle based educational game",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "npm install"
   },
   "repository": {
     "type": "git",
@@ -21,5 +23,10 @@
   "bugs": {
     "url": "https://github.com/IvayloBanchevski/letter-soup/issues"
   },
-  "homepage": "https://github.com/IvayloBanchevski/letter-soup#readme"
+  "homepage": "https://github.com/IvayloBanchevski/letter-soup#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "morgan": "^1.9.0"
+  }
 }
