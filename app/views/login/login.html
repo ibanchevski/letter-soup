@@ -1,28 +1,46 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12 col-sm-4 col-md-4"></div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <div>
-                <h1 class="text-center">Вход</h1>
+<div class="container-fluid" ng-init="selectedLoginType = false">
+    <div class="row mt-5">
+        <div class="col-sm"></div>
+        <div class="col-sm">
+            <div class="card text-center">
+                <div class="card-header">
+                    Вход в системата
+                </div>
+                <div class="card-body" ng-show="selectedLoginType === false">
+                    <h4 class="card-title">Вход</h4>
+                    <p class="card-text">
+                        Избере начин за вход в системата
+                    </p>
+                    <button type="button" class="btn btn-success btn-block btn-lg" ng-click="selectedLoginType = true">
+                       Ученик
+                    </button>
+                    <button type="button" class="btn btn-primary btn-block btn-lg" ng-click="selectedLoginType = true">
+                        Учител
+                    </button>
+                    <div class="btn-group-vertical">
+                    </div>
+                </div>
+                <div class="card-body" ng-if="selectedLoginType === true">
+                    <h1 class="card-title">Вход</h1>
+                    <form novalidate>
+                        <div class="form-group">
+                            <input type="email" id="email" class="form-control" placeholder="Електронна поща">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" id="password" class="form-control" placeholder="Парола">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">Вход</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer">
+                    <a ui-sref="register">Регистрация</a>
+                    |
+                    <a href="">Какъв вход да избера?</a>
+                </div>
             </div>
-            <form novalidate>
-                <div class="form-group">
-                    <label for="email" class="from-control">Email</label>
-                    <input type="email" id="email" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label for="password" class="from-control">Парола</label>
-                    <input type="password" id="password" class="form-control">
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Вход</button>
-                </div>
-                <div class="form-group">
-                    <a ui-sref="" class="btn btn-default btn-block">Реши пъзел</a>
-                </div>
-                <a ui-sref="register">Регистрация на учителски акаунт</a>
-            </form>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4"></div>
+        <div class="col-sm"></div>
     </div>
 </div>
