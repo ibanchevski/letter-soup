@@ -1,0 +1,26 @@
+<div class="container">
+	<!-- Page header -->
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Реши пъзела</h1>
+		</div>
+	</div>
+	<!-- Puzzle details -->
+	<div class="row">
+		<div class="col-md-4">
+			<div class="well">
+				Брой думи: <span class="badge" ng-bind="solve.numberOfWords"></span>
+			</div>
+		</div>
+	</div>
+	<!-- The puzzle matrix -->
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<div class="well">
+				<puzzle matrix="solve.puzzle"></puzzle>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+</div>
