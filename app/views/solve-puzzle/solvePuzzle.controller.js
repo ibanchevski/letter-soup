@@ -1,4 +1,4 @@
-function SolvePuzzleCtrl() {
+function SolvePuzzleCtrl($scope) {
 	var vm = this;
 	vm.numberOfWords = 10;
 	vm.puzzle = [
@@ -7,5 +7,5 @@ function SolvePuzzleCtrl() {
 		['d', 'a', 'x']
 	];
 }
-SolvePuzzleCtrl.$inject = [];
+SolvePuzzleCtrl.$inject = ['$scope'];
 angular.module('letterSoup').controller('SolvePuzzleCtrl', SolvePuzzleCtrl);

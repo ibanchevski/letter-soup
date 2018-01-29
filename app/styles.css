@@ -1,0 +1,55 @@
+#puzzle-holder {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+    padding: 20px;
+    background: linear-gradient(#95e8ff, #27b6eb);
+    border-radius: 10px;
+    font-size: 20px;
+    float: left;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#puzzle-holder span {
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,0.4);
+    border-radius: 5px;
+    float: left;
+}
+
+#puzzle-holder span:hover {
+    cursor: pointer;
+    background: linear-gradient(#696969af, #f3f3f385);
+    transition: 100ms;
+}
+
+@media (max-width: 740px) {
+  #puzzle-holder {
+    /* float: none; */
+  }
+
+  #puzzle-holder span {
+      margin: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  #puzzle-holder {
+    margin-bottom: 20px;
+    padding: 8px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 16px;
+    border-radius: 5px;
+  }
+}
