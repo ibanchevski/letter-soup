@@ -2,7 +2,8 @@ function Puzzle($compile) {
 	return {
 		restrict: 'E',
 		scope: {
-			puzzleMatrix: '=matrix'
+			puzzleMatrix: '=matrix',
+			saveWordIn: '=wordModel'
 		},
 		replace: true,
 		templateUrl: '/views/solve-puzzle/puzzleMatrix.html',
@@ -10,13 +11,25 @@ function Puzzle($compile) {
 			var puzzleHolder = angular.element(document.querySelector('#puzzle-holder'))[0];
 			var selectedLetters = [];
 			var mouseDown = 0;
+			var selectedWord;
+			
 			document.onmousedown = function() {
 				mouseDown++;
 			}
 
 			document.onmouseup = function() {
 				mouseDown--;
+
+				if (selectedLetters.length < 1) {
+					return;
+				}
+				// Convert the letters array into a word,
+				// add it to the given model and empty the array
+				scope.saveWordIn = selectedLetters.join('');
+				scope.$apply();
+				selectedLetters.length = 0;
 			}
+
 			for (var i = 0; i < scope.puzzleMatrix.length; i++) {
 				// Each row
 				for (var j = 0; j < scope.puzzleMatrix[i].length; j++) {
@@ -28,38 +41,33 @@ function Puzzle($compile) {
 						// End of the row
 						puzzleHolder.append(angular.element('<br>')[0]);
 					}
-					// Bind click event
-					letterBox.bind('click', selectLetter);
+
 					letterBox.bind('mouseleave', function(event) {
 						if (mouseDown === 1) {
-							if (event.target.visited === true) {
-								event.target.visited = false;
-								return event.target.style = '';
-							}
-							event.target.style = 'background-color: red';
-							event.target.visited = true;
-							selectedLetters.push(event.target.innerHTML);
+							selectLetter(event);
 						}
 					});
-					letterBox.bind('mouseup', function(event) {
-						if (event.target.visited === true) {
-							event.target.visited = false;
-							return event.target.style = '';
-						}
-						event.target.style = 'background-color: red';
-						event.target.visited = true;
-						selectedLetters.push(event.target.innerHTML);
-						console.log(selectedLetters);
-						console.log(selectedLetters.join(''));
-					});
+					
+					letterBox.bind('mouseup', selectLetter);
 				}
 			}
 
 			function selectLetter(event) {
-				// Get the id of the clicked letter
-				// console.log(event.target.id);
-				var selectedLeterId = event.target.id;
-				selectedLetters.push(selectedLeterId);
+				// Deselect letter (if selected)
+				if (event.target.visited === true) {
+					event.target.visited = false;
+					event.target.style = '';
+
+					// Remove the letter from the letters array
+					selectedLetters.splice(selectedLetters.lastIndexOf(event.target.innerHTML), 1);
+					return;
+				}
+
+				// Make the letter visually selected and push it 
+				// to the array from where a word would be composed
+				event.target.style = 'background-color: red';
+				event.target.visited = true;
+				selectedLetters.push(event.target.innerHTML);
 			}
 		}
 	}

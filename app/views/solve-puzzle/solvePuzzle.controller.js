@@ -6,6 +6,15 @@ function SolvePuzzleCtrl($scope) {
 		['z', 's', 'j'],
 		['d', 'a', 'x']
 	];
+	vm.selectedWord = '';
+
+	$scope.$watch(function() {
+		return vm.selectedWord;
+	}, function(newWord, oldWord) {
+		if (newWord) {
+			// Validate word
+		}
+	});
 }
 SolvePuzzleCtrl.$inject = ['$scope'];
 angular.module('letterSoup').controller('SolvePuzzleCtrl', SolvePuzzleCtrl);
