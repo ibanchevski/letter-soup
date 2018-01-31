@@ -56,7 +56,7 @@ function Puzzle($compile) {
 				// Deselect letter (if selected)
 				if (event.target.visited === true) {
 					event.target.visited = false;
-					event.target.style = '';
+					event.target.className = '';
 
 					// Remove the letter from the letters array
 					selectedLetters.splice(selectedLetters.lastIndexOf(event.target.innerHTML), 1);
@@ -65,7 +65,7 @@ function Puzzle($compile) {
 
 				// Make the letter visually selected and push it 
 				// to the array from where a word would be composed
-				event.target.style = 'background-color: red';
+				event.target.className = 'selectedLetter';
 				event.target.visited = true;
 				selectedLetters.push(event.target.innerHTML);
 			}

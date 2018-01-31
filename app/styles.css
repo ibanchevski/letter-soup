@@ -27,10 +27,15 @@
     float: left;
 }
 
-#puzzle-holder span:hover {
-    cursor: pointer;
-    background: linear-gradient(#696969af, #f3f3f385);
-    transition: 100ms;
+#puzzle-holder > span:hover {
+    background: linear-gradient(#f39251e1, #72ddfd);
+    color: white;
+}
+
+span.selectedLetter {
+  background: linear-gradient(#27b6eb, #0f97c9) !important;
+  color: white;
+  border: 2px solid #d9ebf1;
 }
 
 @media (max-width: 740px) {
@@ -40,6 +45,10 @@
 
   #puzzle-holder span {
       margin: 5px;
+  }
+
+  span.selectedLetter {
+    border: 1px solid #d9ebf1;
   }
 }
 

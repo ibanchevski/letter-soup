@@ -12,7 +12,7 @@ function SolvePuzzleCtrl($scope) {
 		return vm.selectedWord;
 	}, function(newWord, oldWord) {
 		if (newWord) {
-			// Validate word
+			// TODO: Validate selected word
 		}
 	});
 }
