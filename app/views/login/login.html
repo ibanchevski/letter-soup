@@ -18,18 +18,18 @@
                 </div>
                 <!-- MAIN LOGIN FORM -->
                 <div class="panel-body animated fadeIn" ng-if="login.render === 'loginForm'">
-                    <form novalidate>
+                    <form name="loginForm" novalidate ng-submit="loginForm.$invalid || login.login()">
                         <div class="form-group">
                             <label for="email" class="from-control">Email</label>
-                            <input type="email" id="email" class="form-control">
+                            <input type="email" id="email" class="form-control" ng-model="login.email" required>
                         </div>
                         <div class="form-group">
                             <label for="password" class="from-control">Парола</label>
-                            <input type="password" id="password" class="form-control">
+                            <input type="password" id="password" class="form-control" ng-model="login.password" required>
                         </div>
                         <div class="checkbox">
                             <label>
-                                <input type="checkbox"> Запомни ме
+                                <input type="checkbox" ng-model="login.rememberMe"> Запомни ме
                             </label>
                         </div>
                         <div class="form-group">

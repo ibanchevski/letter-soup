@@ -17,8 +17,27 @@ function authenticationService($q, $http) {
         return deferred.promise;
     }
 
+    function authenticateTeacher(email, password) {
+        var deferred = $q.defer();
+
+        $http.post('/login', {email: email, password: password})
+            .then(function(res) {
+                // Return the signed token to be saved in a cookie
+                deferred.resolve(res.data);
+            }, function(error) {
+                // The server is not running
+                if (error.status === 404) {
+                    return deferred.reject('Възникна грешка при свързването със сървъра. Моля, опитайте по-късно!');
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+
     return {
-        registerTeacher: registerTeacher
+        registerTeacher: registerTeacher,
+        authenticateTeacher: authenticateTeacher
     }
 }
 authenticationService.$inject = ['$q', '$http'];

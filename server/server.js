@@ -37,6 +37,8 @@ app.use(express.static('../app'));
 
 router.post('/teacher', TeacherController.registerTeacher);
 
+router.post('/login', TeacherController.login);
+
 // Start server on given port
 app.listen(PORT, function() {
     console.log('Server running on port ' + PORT);
