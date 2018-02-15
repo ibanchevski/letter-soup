@@ -35,9 +35,29 @@ function authenticationService($q, $http) {
         return deferred.promise;
     }
 
+    function validateToken(token) {
+        var deferred = $q.defer();
+
+        $http.get('/token/valid', { headers: { 'x-access-token': token } })
+            .then(function (res) {
+                // Return the token status (valid - true/false)
+                deferred.resolve(res.data);
+                console.log(res.data);
+            }, function (error) {
+                // The server is not running
+                if (error.status === 404) {
+                    return deferred.reject('Възникна грешка при свързването със сървъра. Моля, опитайте по-късно!');
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         registerTeacher: registerTeacher,
-        authenticateTeacher: authenticateTeacher
+        authenticateTeacher: authenticateTeacher,
+        validateToken: validateToken
     }
 }
 authenticationService.$inject = ['$q', '$http'];

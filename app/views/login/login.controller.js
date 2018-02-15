@@ -1,5 +1,6 @@
 function LoginCtrl($cookies, $state, authenticationService, Notification) {
     var vm = this;
+    var tokenCookie = $cookies.get('_t');
     vm.render = 'enter';
     vm.email = '';
     vm.password = '';
@@ -8,11 +9,14 @@ function LoginCtrl($cookies, $state, authenticationService, Notification) {
     vm.setRender = function(render) {
         vm.render = render;
     };
-
+    
     vm.login = function() {
         authenticationService
             .authenticateTeacher(vm.email, vm.password)
             .then(function(token) {
+                if (tokenCookie !== undefined) {
+                    $cookies.remove('_t');
+                }
                 if (vm.rememberMe === false) {
                     // Put session cookie
                     $cookies.put('_t', token);
@@ -22,6 +26,7 @@ function LoginCtrl($cookies, $state, authenticationService, Notification) {
                     exp.setHours(exp.getHours() + 8);
                     $cookies.put('_t', token, { expires:  exp});
                 }
+                $state.go('teacher');
             }, function(error) {
                 Notification.error({
                     title: 'Грешка!',

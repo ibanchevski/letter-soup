@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 // Controllers
 const TeacherController = require('./controllers/Teacher');
+const TokenController = require('./controllers/Token');
 
 const app = express();
 const router = express.Router();
@@ -39,6 +40,7 @@ router.post('/teacher', TeacherController.registerTeacher);
 
 router.post('/login', TeacherController.login);
 
+router.get('/token/valid', TokenController.validate);
 // Start server on given port
 app.listen(PORT, function() {
     console.log('Server running on port ' + PORT);
