@@ -14,15 +14,14 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             controllerAs: 'register'
         })
         .state('teacher', {
-            // url: '/dashboard',
             templateUrl: '/views/templates/teacherLayout.html',
             controller: 'TeacherLayoutCtrl',
-            contorllerAs: 'layout'
+            controllerAs: 'layout'
         })
         .state('teacher.dashboard', {
             url: '/dashboard',
             templateUrl: '/views/dashboard/dashboard.html',
             controller: 'DashboardCtrl',
-            contorllerAs: 'dashboard'
+            controllerAs: 'dashboard'
         });
 });

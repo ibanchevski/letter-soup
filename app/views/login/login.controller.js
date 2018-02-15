@@ -34,6 +34,11 @@ function LoginCtrl($cookies, $state, authenticationService, Notification) {
                 });
             });
     };
+
+    // Log in directly if the teacher has token cookie
+    if (tokenCookie !== undefined) {
+        $state.go('teacher');
+    }
 }
 LoginCtrl.$inject = ['$cookies', '$state', 'authenticationService', 'Notification'];
 angular.module('letterSoup').controller('LoginCtrl', LoginCtrl);

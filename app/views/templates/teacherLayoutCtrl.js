@@ -1,5 +1,6 @@
 function TeacherLayoutCtrl($cookies, $state, $transitions, authenticationService, Notification) {
     var token = $cookies.get('_t');
+    var vm = this;
 
     if (token === undefined) {
         $state.go('login');
@@ -38,6 +39,11 @@ function TeacherLayoutCtrl($cookies, $state, $transitions, authenticationService
         var stateService = trans.router.stateService;
         return validateToken(stateService, 'login');
     });
+
+    vm.logOut = function() {
+        $cookies.remove('_t');
+        $state.go('login');
+    };
 
 }
 TeacherLayoutCtrl.$inject = ['$cookies', '$state', '$transitions', 'authenticationService', 'Notification'];

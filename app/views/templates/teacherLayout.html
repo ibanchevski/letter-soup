@@ -1,1 +1,33 @@
+<nav class="navbar navbar-default" ng-init="navCollapsed = true">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" ng-click="navCollapsed = !navCollapsed" >
+                <span class="sr-only">Отвори падащото меню</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand">Супа от букви</a>
+        </div>
+
+        <div class="collapse navbar-collapse" uib-collapse="navCollapsed">
+            <ul class="nav navbar-nav">
+                <li ng-class="{'active' : activeState === 'n'}">
+                    <a href="" ng-click="activeState = 'n'">Начало</a>
+                </li>
+                <li ng-class="{'active' : activeState === 'k'}">
+                    <a href="" ng-click="activeState = 'k'">Колекции</a>
+                </li>
+                <li ng-class="{'active' : activeState === 'nk'}">
+                    <a href="" ng-click="activeState = 'nk'">Нова колекция</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" ng-click="layout.logOut()">Изход</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
 <ui-view></ui-view>

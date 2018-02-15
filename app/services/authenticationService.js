@@ -42,7 +42,6 @@ function authenticationService($q, $http) {
             .then(function (res) {
                 // Return the token status (valid - true/false)
                 deferred.resolve(res.data);
-                console.log(res.data);
             }, function (error) {
                 // The server is not running
                 if (error.status === 404) {
