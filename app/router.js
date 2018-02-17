@@ -14,6 +14,7 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             controllerAs: 'register'
         })
         .state('teacher', {
+            url: '/teacher',
             templateUrl: '/views/templates/teacherLayout.html',
             controller: 'TeacherLayoutCtrl',
             controllerAs: 'layout'
@@ -23,5 +24,11 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             templateUrl: '/views/dashboard/dashboard.html',
             controller: 'DashboardCtrl',
             controllerAs: 'dashboard'
+        })
+        .state('teacher.collections', {
+            url: '/collections'
+        })
+        .state('teacher.newCollection', {
+            url: '/new-collection'
         });
 });

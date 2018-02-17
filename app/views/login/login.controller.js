@@ -14,7 +14,7 @@ function LoginCtrl($cookies, $state, authenticationService, Notification) {
         authenticationService
             .authenticateTeacher(vm.email, vm.password)
             .then(function(token) {
-                if (tokenCookie !== undefined) {
+                if ($cookies.get('_t') !== undefined) {
                     $cookies.remove('_t');
                 }
                 if (vm.rememberMe === false) {
