@@ -59,3 +59,4 @@ typings/
 
 # VSCode editor settings
 .vscode
+server/startDB.sh

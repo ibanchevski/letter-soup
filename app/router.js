@@ -29,6 +29,9 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             url: '/collections'
         })
         .state('teacher.newCollection', {
-            url: '/new-collection'
+            url: '/new-collection',
+            templateUrl: 'views/new-collection/newCollection.html',
+            controller: 'NewCollectionCtrl',
+            controllerAs: 'collection'
         });
 });
