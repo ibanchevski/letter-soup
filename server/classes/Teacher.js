@@ -1,4 +1,6 @@
 const TeacherModel = require('../models/Teacher');
+const WordsCollectionModel = require('../models/WordsCollection');
+
 const Q = require('q');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -7,7 +9,9 @@ const config = require('../config');
 const saltRounds = 8;
 
 class Teacher {
-    constructor() {}
+    constructor(email) {
+        this._email = email;
+    }
 
     /**
      * Registers new teacher by given teacherObject
@@ -78,6 +82,37 @@ class Teacher {
             // Sign new token that expires in 8 hours
             teacherToken = jwt.sign({ email: teacherDoc.email }, config.tokenSecret, { expiresIn: '8h' });
             deferred.resolve(teacherToken);
+        });
+
+        return deferred.promise;
+    }
+
+    createCollection(collectionObj) {
+        const deferred = Q.defer();
+        const self = this;
+        collectionObj.teacher = this._email;
+        const wordsColl = new WordsCollectionModel({
+            title: String(collectionObj.title),
+            teacher: String(this._email),
+            words: collectionObj.words,
+            category: String(collectionObj.category) || ''
+        });
+
+        wordsColl.save(function(error, collectionDoc) {
+            if (error) {
+                // TODO: Add error handler (logger?)
+                deferred.reject('Грешка! Моля, опитайте пак!');
+                return;
+            }
+
+            // Add reference of the collection to the teacher model
+            TeacherModel
+                .updateOne({ "email": self._email }, { $push: { wordCollections: collectionDoc._id } }, function(error) {
+                    if (error) {
+                        // TODO: Handle the error
+                    }
+                    deferred.resolve();
+                });
         });
 
         return deferred.promise;

@@ -38,7 +38,7 @@ function authenticationService($q, $http) {
     function validateToken(token) {
         var deferred = $q.defer();
 
-        $http.get('/token/valid', { headers: { 'x-access-token': token } })
+        $http.get('/api/token/valid', { headers: { 'x-access-token': token } })
             .then(function (res) {
                 // Return the token status (valid - true/false)
                 deferred.resolve(res.data);
