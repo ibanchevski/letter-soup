@@ -41,7 +41,7 @@ app.post('/login', TeacherController.login);
 
 router.get('/token/valid', TokenController.validate);
 
-// Validate token on every request and savethe decoded info (email) in the req object
+// Validate token on every request and save the decoded info (email) in the req object
 router.use(function (req, res, next) {
     const cookies = cookiesParser.parseCookies(req.headers.cookie);
     
@@ -61,14 +61,12 @@ router.use(function (req, res, next) {
 
     jwt.verify(token.value, config.tokenSecret, function (error, decoded) {
         if (error) {
-            console.log(error);
             res.status(401).send('Грешка при ауторизацията! Моля, влезте в профила отново.');
             return;
         }
         req.decoded = decoded;
-        console.log(decoded);
+        next();
     });
-    next();
 });
 
 router.post('/collection', TeacherController.createCollection);
