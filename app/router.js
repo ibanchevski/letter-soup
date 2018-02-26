@@ -26,7 +26,10 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             controllerAs: 'dashboard'
         })
         .state('teacher.collections', {
-            url: '/collections'
+            url: '/collections',
+            templateUrl: '/views/collections/collections.html',
+            controller: 'CollectionsCtrl',
+            controllerAs: 'collections'
         })
         .state('teacher.newCollection', {
             url: '/new-collection',

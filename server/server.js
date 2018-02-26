@@ -42,6 +42,7 @@ app.post('/login', TeacherController.login);
 router.get('/token/valid', TokenController.validate);
 
 // Validate token on every request and save the decoded info (email) in the req object
+// TODO: Probably move to a module
 router.use(function (req, res, next) {
     const cookies = cookiesParser.parseCookies(req.headers.cookie);
     
@@ -70,7 +71,7 @@ router.use(function (req, res, next) {
 });
 
 router.post('/collection', TeacherController.createCollection);
-
+router.get('/collection/all', TeacherController.getAllCollections);
 // Use Express router for routing
 app.use('/api', router);
 

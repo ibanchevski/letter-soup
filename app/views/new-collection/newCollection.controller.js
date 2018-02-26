@@ -1,4 +1,4 @@
-function newCollectionController(Notification, CollectionService) {
+function newCollectionController(Notification, CollectionService, $state) {
     var vm = this;
     vm.wordFieldValue = '';
     vm.title = '';
@@ -38,7 +38,7 @@ function newCollectionController(Notification, CollectionService) {
         CollectionService
             .createCollection(collection)
             .then(function() {
-
+                $state.go('teacher.collections');
             }, function(error) {
                 Notification.error({
                     title: 'Грешка!',
@@ -47,5 +47,5 @@ function newCollectionController(Notification, CollectionService) {
             });
     };
 }
-newCollectionController.$inject = ['Notification', 'CollectionService'];
+newCollectionController.$inject = ['Notification', 'CollectionService', '$state'];
 angular.module('letterSoup').controller('NewCollectionCtrl', newCollectionController);

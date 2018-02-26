@@ -87,6 +87,11 @@ class Teacher {
         return deferred.promise;
     }
 
+    /**
+     * Creates a teacher collection by given collection object, which holds
+     * all the necessary data about the collection
+     * @param {object} collectionObj Containing collections' title, words and category
+     */
     createCollection(collectionObj) {
         const deferred = Q.defer();
         const self = this;
@@ -113,6 +118,26 @@ class Teacher {
                     }
                     deferred.resolve();
                 });
+        });
+
+        return deferred.promise;
+    }
+
+    getAllCollections() {
+        const deferred = Q.defer();
+
+        TeacherModel.findOne({ "email": this._email }, 'wordCollections', function(error, teacherDoc) {
+            if (error) {
+                deferred.reject(new Error('Грешка при изтеглянето на колекциите!'));
+                return;
+            }
+            WordsCollectionModel.find({ "_id": { $in:  teacherDoc.wordCollections} }, function(error, wordCollections) {
+                if (error) {
+                    deferred.reject(new Error('Грешка при изтеглянето на колекциите!'));
+                    return;
+                }
+                deferred.resolve(wordCollections);
+            });
         });
 
         return deferred.promise;

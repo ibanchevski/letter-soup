@@ -37,3 +37,14 @@ module.exports.createCollection = function(req, res) {
             res.status(500).send(error);
         });
 };
+
+module.exports.getAllCollections = function(req, res) {
+    const teacher = new Teacher(req.decoded.email);
+    teacher
+        .getAllCollections()
+        .then(collections => {
+            res.send(collections);
+        }, error => {
+            res.status(500).send(error);
+        });
+};
