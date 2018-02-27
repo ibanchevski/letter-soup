@@ -1,1 +1,1 @@
-angular.module('letterSoup', ['ui.router']);
+angular.module('letterSoup', ['ui.router', 'ui-notification', 'ngCookies', 'ui.bootstrap']);

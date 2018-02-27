@@ -38,10 +38,14 @@ span.selectedLetter {
   border: 2px solid #d9ebf1;
 }
 
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
 @media (max-width: 740px) {
-  #puzzle-holder {
-    /* float: none; */
-  }
+  /* #puzzle-holder {
+    float: none;
+  } */
 
   #puzzle-holder span {
       margin: 5px;

@@ -18,5 +18,29 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             templateUrl: '/views/solve-puzzle/puzzle.html',
             controller: 'SolvePuzzleCtrl',
             controllerAs: 'solve'
+        })
+        .state('teacher', {
+            url: '/teacher',
+            templateUrl: '/views/templates/teacherLayout.html',
+            controller: 'TeacherLayoutCtrl',
+            controllerAs: 'layout'
+        })
+        .state('teacher.dashboard', {
+            url: '/dashboard',
+            templateUrl: '/views/dashboard/dashboard.html',
+            controller: 'DashboardCtrl',
+            controllerAs: 'dashboard'
+        })
+        .state('teacher.collections', {
+            url: '/collections',
+            templateUrl: '/views/collections/collections.html',
+            controller: 'CollectionsCtrl',
+            controllerAs: 'collections'
+        })
+        .state('teacher.newCollection', {
+            url: '/new-collection',
+            templateUrl: 'views/new-collection/newCollection.html',
+            controller: 'NewCollectionCtrl',
+            controllerAs: 'collection'
         });
 });

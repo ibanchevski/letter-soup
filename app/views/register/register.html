@@ -1,41 +1,104 @@
-<div class="container-fluid">
+<div class="container">
+    <!-- ERRORS BOX -->
+    <div class="row" ng-if="register.error.length > 0">
+        <div class="col-md-12">
+            <div class="alert alert-warning" ng-bind="register.error"></div>
+        </div>
+    </div>
     <!-- MAIN FORM -->
     <div class="row">
-        <div class="col-xs-12 col-sm-4 col-md-4"></div>
-        <div class="col-xs-12 col-sm-4 col-md-4">
-            <h1>Регистрация</h1>
-            <form novalidate>
-                <div class="form-group">
-                    <label for="name">Име</label>
-                    <input type="text" class="form-control" id="name">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default" style="margin-top: 2vh">
+                <div class="panel-body">
+                    <h2>Регистрация</h2>
+                    <form name="regForm" novalidate ng-submit="regForm.$invalid || register.register()">
+                        <div class="form-group">
+                            <label for="name">Име</label>
+                            <input type="text" class="form-control" name="fname" id="name" ng-model="register.teacher.firstName" required>
+                            <p class="text-danger"
+                            ng-if="(regForm.fname.$valid === false && regForm.fname.$touched === true) 
+                                    || (regForm.$submitted === true && regForm.fname.$invalid === true)">
+                                Това поле е задължително!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Фамилия</label>
+                            <input type="text" class="form-control" name="lname" id="lname" ng-model="register.teacher.lastName" required>
+                            <p class="text-danger"
+                            ng-if="(regForm.lname.$valid === false && regForm.lname.$touched === true)
+                                    || (regForm.$submitted === true && regForm.lname.$invalid === true)">
+                                Това поле е задължително!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Град</label>
+                            <input type="text" class="form-control" name="city" id="city" ng-model="register.teacher.city" required>
+                            <p class="text-danger"
+                            ng-if="(regForm.city.$valid === false && regForm.city.$touched === true)
+                                    || (regForm.$submitted === true && regForm.city.$invalid === true)">
+                                Това поле е задължително!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">Училище</label>
+                            <input type="text" class="form-control" name="school" id="school" ng-model="register.teacher.school" required>
+                            <p class="text-danger"
+                            ng-if="(regForm.school.$valid === false && regForm.school.$touched === true)
+                                    || (regForm.$submitted === true && regForm.school.$invalid === true)">
+                                Това поле е задължително!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email" id="email" ng-model="register.teacher.email" required>
+                            <p class="text-danger"
+                            ng-if="(regForm.email.$valid === false && regForm.email.$touched === true)
+                                    || (regForm.$submitted === true && regForm.email.$invalid === true)">
+                                Email адресът трябва да е в следния формат: name@domain
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Парола</label>
+                            <input type="password" class="form-control" name="password" id="password" ng-model="register.teacher.password" required>
+                            <p class="text-danger"
+                            ng-if="(regForm.password.$valid === false && regForm.password.$touched === true)
+                                 || (regForm.$submitted === true && regForm.password.$invalid === true)">
+                                Това поле е задължително!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="rpassword">Повторете паролата</label>
+                            <input type="password" class="form-control" name="reppass" id="rpassword" ng-model="register.repeatedPassword" required>
+                            <p class="text-danger"
+                            ng-if="(regForm.reppass.$valid === false && regForm.reppass.$touched === true)
+                                    || (regForm.$submitted === true && regForm.reppass.$invalid === true)">
+                                Това поле е задължително!
+                            </p>
+                            <p class="text-danger" ng-if="regForm.reppass.$touched === true && register.teacher.password !== register.repeatedPassword">
+                                Паролите не съвпадат!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="subj">Предмет</label>
+                            <select id="subj" class="form-control" name="subj" ng-model="register.teacher.subject" ng-options="subj._id as subj.name for subj in register.subjects"></select>
+                            <p class="text-danger"
+                            ng-if="(regForm.subj.$touched === true && register.teacher.subject === '')
+                                    || (regForm.$submitted === true && register.teacher.subject === '')">
+                                Това поле е задължително!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-primary btn-block" value="Регистрация">
+                        </div>
+                    </form>
+                    <div class="form-group">
+                        <button type="button" ui-sref="login" class="btn btn-default btn-block">
+                            <i class="fas fa-arrow-left"></i>
+                            Към началната страница
+                        </button>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="lname">Фамилия</label>
-                    <input type="text" class="form-control" id="lname">
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email">
-                </div>
-                <div class="form-group">
-                    <label for="password">Парола</label>
-                    <input type="password" class="form-control" id="password">
-                </div>
-                <div class="form-group">
-                    <label for="rpassword">Повторете паролата</label>
-                    <input type="password" class="form-control" id="rpassword">
-                </div>
-                <div class="form-group">
-                    <label for="subj">Предмет</label>
-                    <input type="text" class="form-control" id="subj">
-                    <small class="form-text text-muted">пр. Английски| Испански| т.н.</small>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-block" value="Регистрация">
-                </div>
-            </form>
-            <a ui-sref="login">Към началната страница</a>
+            </div>
         </div>
-        <div class="col-xs-12 col-sm-4 col-md-4"></div>
     </div>
 </div>

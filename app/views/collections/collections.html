@@ -1,0 +1,64 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Създадени колекции</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="collections.error.length > 0">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-circle"></i>
+                {{collections.error}}
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="collections.collections.length === 0">
+        <div class="col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4">
+            <div class="alert alert-warning" role="alert">
+                <i class="fas fa-exclamation-triangle"></i>&nbsp;
+                Нямате създадени колекции!
+                <a ui-sref="teacher.newCollection" class="alert-link">Създайте колекция?</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 col-md-3" ng-repeat="collection in collections.collections">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <!-- Collection title -->
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>{{collection.title}}</h4>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="btn-group pull-right">
+                                <button class="btn btn-default" uib-tooltip="Генерирай линк" tooltip-append-to-body="true">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                                <button class="btn btn-default" uib-tooltip="Редакция на колекцията" tooltip-append-to-body="true">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-default" uib-tooltip="Изтрий колекцията" tooltip-append-to-body="true">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"><hr></div>
+                    <!-- Collection words -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-group no-margin-bottom">
+                                <li class="list-group-item" ng-repeat="word in collection.words">
+                                    {{word}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
