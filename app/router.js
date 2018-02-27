@@ -13,6 +13,12 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             controller: 'RegisterCtrl',
             controllerAs: 'register'
         })
+        .state('solve', {
+            url: '/puzzle',
+            templateUrl: '/views/solve-puzzle/puzzle.html',
+            controller: 'SolvePuzzleCtrl',
+            controllerAs: 'solve'
+        })
         .state('teacher', {
             url: '/teacher',
             templateUrl: '/views/templates/teacherLayout.html',

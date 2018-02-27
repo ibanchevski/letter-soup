@@ -1,0 +1,35 @@
+<div class="container">
+	<!-- Page header -->
+	<div class="row">
+		<div class="col-md-12">
+			<h1>Реши пъзела</h1>
+		</div>
+	</div>
+	<!-- Puzzle details -->
+	<div class="row">
+		<div class="col-md-4">
+			<div class="well">
+				Брой думи: <span class="badge" ng-bind="solve.numberOfWords"></span>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<div class="well">
+				<input type="text" class="form-control" placeholder="Дума от матрицата" ng-model="solve.selectedWord" ng-model-options="{debounce: 500}">
+				<small class="text-muted">Матрицата не работи? Използвай това поле</small class="text-muted">
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<p>Избрана дума: {{solve.selectedWord}}</p>
+		</div>
+	</div>
+	<!-- The puzzle matrix -->
+	<div class="row">
+		<div class="col-md-12">
+			<puzzle matrix="solve.puzzle" word-model="solve.selectedWord"></puzzle>
+		</div>
+	</div>
+</div>

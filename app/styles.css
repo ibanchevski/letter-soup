@@ -1,3 +1,68 @@
+#puzzle-holder {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+    box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    margin-bottom: 15px;
+    padding: 20px;
+    background: linear-gradient(#95e8ff, #27b6eb);
+    border-radius: 10px;
+    font-size: 20px;
+    float: left;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#puzzle-holder span {
+    margin: 5px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 0 4px rgba(0,0,0,0.4);
+    border-radius: 5px;
+    float: left;
+}
+
+#puzzle-holder > span:hover {
+    background: linear-gradient(#f39251e1, #72ddfd);
+    color: white;
+}
+
+span.selectedLetter {
+  background: linear-gradient(#27b6eb, #0f97c9) !important;
+  color: white;
+  border: 2px solid #d9ebf1;
+}
+
 .no-margin-bottom {
     margin-bottom: 0 !important;
+}
+
+@media (max-width: 740px) {
+  /* #puzzle-holder {
+    float: none;
+  } */
+
+  #puzzle-holder span {
+      margin: 5px;
+  }
+
+  span.selectedLetter {
+    border: 1px solid #d9ebf1;
+  }
+}
+
+@media (max-width: 480px) {
+  #puzzle-holder {
+    margin-bottom: 20px;
+    padding: 8px;
+    text-align: center;
+    font-size: 16px;
+    line-height: 16px;
+    border-radius: 5px;
+  }
 }
