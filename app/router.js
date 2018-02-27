@@ -14,7 +14,8 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             controllerAs: 'register'
         })
         .state('solve', {
-            url: '/puzzle',
+            url: '/puzzle/puzzleCode',
+            params: { puzzleCode: null  },
             templateUrl: '/views/solve-puzzle/puzzle.html',
             controller: 'SolvePuzzleCtrl',
             controllerAs: 'solve'

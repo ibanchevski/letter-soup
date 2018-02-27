@@ -1,14 +1,17 @@
-const express = require('express');
-const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
+// Modules
+const express     = require('express');
+const morgan      = require('morgan');
+const bodyParser  = require('body-parser');
+const mongoose    = require('mongoose');
+const jwt         = require('jsonwebtoken');
 
 // Controllers
 const TeacherController = require('./controllers/Teacher');
-const TokenController = require('./controllers/Token');
-const cookiesParser = require('./modules/CookiesParser');
+const TokenController   = require('./controllers/Token');
+const PuzzleController  = require('./controllers/Puzzle');
+const cookiesParser     = require('./modules/CookiesParser');
 
+// Config vars
 const app = express();
 const router = express.Router();
 const config = require('./config');
@@ -25,6 +28,11 @@ mongoose.connect('mongodb://localhost/test', {
     return console.log(error);
 });
 
+// Serve static files
+// TODO: Probably remove 
+// (serve with web server and use different port (3000?))
+app.use(express.static('../app'));
+
 // Log HTTP requests
 app.use(morgan('dev'));
 
@@ -32,15 +40,16 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
-// Serve static files
-app.use(express.static('../app'));
+// ============ UNAUTHORISED ROUTES ============== //
 
 app.post('/teacher', TeacherController.registerTeacher);
 
 app.post('/login', TeacherController.login);
 
 router.get('/token/valid', TokenController.validate);
+router.get('/puzzle/:puzzleCode/valid', PuzzleController.validatePuzzleCode);
 
+// ============ AUTHENTICATION-REQUIRED ROUTES ============== //
 // Validate token on every request and save the decoded info (email) in the req object
 // TODO: Probably move to a module
 router.use(function (req, res, next) {
@@ -72,6 +81,7 @@ router.use(function (req, res, next) {
 
 router.post('/collection', TeacherController.createCollection);
 router.get('/collection/all', TeacherController.getAllCollections);
+
 // Use Express router for routing
 app.use('/api', router);
 

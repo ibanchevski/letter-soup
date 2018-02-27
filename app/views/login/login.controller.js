@@ -1,13 +1,20 @@
-function LoginCtrl($cookies, $state, authenticationService, Notification) {
+function LoginCtrl($cookies, $state, authenticationService, Notification, puzzleService) {
     var vm = this;
     var tokenCookie = $cookies.get('_t');
     vm.render = 'enter';
     vm.email = '';
     vm.password = '';
     vm.rememberMe = false;
+    vm.puzzleCode = '';
 
     vm.setRender = function(render) {
         vm.render = render;
+
+        // Null-ate all vars
+        vm.email = '';
+        vm.password = '';
+        vm.rememberMe = false;
+        vm.puzzleCode = '';
     };
     
     vm.login = function() {
@@ -35,10 +42,30 @@ function LoginCtrl($cookies, $state, authenticationService, Notification) {
             });
     };
 
+    vm.validatePuzzleCode = function() {
+        puzzleService
+            .validatePuzzleCode(vm.puzzleCode)
+            .then(function onResponse(isValid) {
+                if (isValid === false) {
+                    Notification.error({
+                        title: 'Грешка!',
+                        message: 'Въведеният код е невалиден!'
+                    });
+                    return;
+                }
+                $state.go('solve', { puzzleCode: vm.puzzleCode });
+            }, function onError(error) {
+                Notification.error({
+                    title: 'Грешка!',
+                    message: error
+                });
+            });
+    };
+
     // Log in directly if the teacher has token cookie
     if (tokenCookie !== undefined) {
         $state.go('teacher');
     }
 }
-LoginCtrl.$inject = ['$cookies', '$state', 'authenticationService', 'Notification'];
+LoginCtrl.$inject = ['$cookies', '$state', 'authenticationService', 'Notification', 'puzzleService'];
 angular.module('letterSoup').controller('LoginCtrl', LoginCtrl);
