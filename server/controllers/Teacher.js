@@ -48,3 +48,16 @@ module.exports.getAllCollections = function(req, res) {
             res.status(500).send(error);
         });
 };
+
+module.exports.getCollectionById = function(req, res) {
+    const teacher = new Teacher(req.decoded.email);
+    const collectionId = String(req.params.collectionId);
+    teacher
+        .getCollectionById(collectionId)
+        .then(function(collection) {
+            res.json(collection);
+        }, function(error) {
+            console.log(error);
+            res.status(500).send(error);
+        });
+};

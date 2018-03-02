@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <!-- HEADER -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Редакция на колекция</h1>
+            </div>
+        </div>
+    </div>
+    <!-- EDIT FORM -->
+    <div class="row">
+        <div class="col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form ng-submit="edit.editCollection()">
+                        <div class="form-group">
+                            <label for="title">Заглавие</label>
+                            <input type="text" id="title" class="form-control" pattern="^[a-zA-Z0-9]*$"
+                            ng-model="edit.editedCollection.title"
+                            ng-value="edit.collection.title"
+                            required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cat">Категория
+                                <span class="text-muted">(Незадължително)</span>
+                            </label>
+                            <input type="text" id="cat" class="form-control" pattern="^[a-zA-Z0-9]*$" ng-model="edit.collection.category">
+                        </div>
+                        <div class="form-group">
+                            <label>Думи в колекцията</label>
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="word in edit.collection.words">
+                                    {{word}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="form-group">
+                            <!-- <input type="submit" value="Редактирай" class="btn btn-default btn-block"> -->
+                            <button type="submit" class="btn btn-default btn-block">
+                                <span class="glyphicon glyphicon-check"></span>
+                                Запази
+                            </button>
+                        </div>
+                        <div class="form-group no-margin-bottom">
+                            <a ui-sref="teacher.collections" class="btn btn-default btn-block">
+                                <i class="fas fa-arrow-circle-left"></i>
+                                Обратно
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

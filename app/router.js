@@ -40,8 +40,15 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
         })
         .state('teacher.newCollection', {
             url: '/new-collection',
-            templateUrl: 'views/new-collection/newCollection.html',
+            templateUrl: '/views/new-collection/newCollection.html',
             controller: 'NewCollectionCtrl',
             controllerAs: 'collection'
+        })
+        .state('teacher.editCollection', {
+            url: '/edit-collection/:collectionId',
+            params: { collectionId: null },
+            templateUrl: '/views/edit-collection/editCollection.html',
+            controller: 'EditCollectionCtrl',
+            controllerAs: 'edit'
         });
 });

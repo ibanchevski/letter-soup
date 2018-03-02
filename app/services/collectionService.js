@@ -44,9 +44,28 @@ function collectionService($q, $http) {
         return deferred.promise;
     }
 
+    function getCollectionById(id) {
+        var deferred = $q.defer();
+
+        $http
+            .get('/api/collection/' + id)
+            .then(function(res) {
+                deferred.resolve(res.data);
+            }, function(error) {
+                if (error.status === 404) {
+                    deferred.reject('Възникна грешка при свързването със сървъра. Моля, опитайте по-късно!');
+                    return;
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         createCollection: createCollection,
-        getAllCollections: getAllCollections
+        getAllCollections: getAllCollections,
+        getCollectionById: getCollectionById
     }
 }
 collectionService.$inject = ['$q', '$http'];

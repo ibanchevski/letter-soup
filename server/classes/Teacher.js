@@ -142,5 +142,23 @@ class Teacher {
 
         return deferred.promise;
     }
+
+    getCollectionById(id) {
+        const deferred = Q.defer();
+
+        WordsCollectionModel.findOne({"_id": id, "teacher": this._email}, function(error, collection) {
+            if (error) {
+                // TODO: Error handling
+                deferred.reject('Грешка при изтеглянето на колекцията!');
+                return;
+            } else if (collection === null) {
+                deferred.reject('Колекцията не беше намерена!');
+                return;
+            }
+            deferred.resolve(collection);
+        });
+
+        return deferred.promise;
+    }
 }
 module.exports = Teacher;
