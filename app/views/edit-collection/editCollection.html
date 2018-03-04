@@ -12,25 +12,41 @@
         <div class="col-sm-4 col-sm-offset-4 col-md-4 col-md-offset-4 col-lg-4 col-lg-offset-4">
             <div class="panel panel-default">
                 <div class="panel-body">
-                    <form ng-submit="edit.editCollection()">
+                    <form name="edit.editForm" ng-submit="edit.editForm.$invalid || edit.submit()" novalidate>
                         <div class="form-group">
                             <label for="title">Заглавие</label>
-                            <input type="text" id="title" class="form-control" pattern="^[a-zA-Z0-9]*$"
-                            ng-model="edit.editedCollection.title"
-                            ng-value="edit.collection.title"
-                            required>
+                            <input type="text" id="title" name="title" class="form-control" pattern="^[a-zA-Z0-9- ]*$" ng-model="edit.collection.title" required>
+                            <p class="text text-danger" ng-if="edit.editForm.title.$valid === false">Това поле е задължително! Може да съдържа само букви и цифри.</p>
                         </div>
                         <div class="form-group">
                             <label for="cat">Категория
                                 <span class="text-muted">(Незадължително)</span>
                             </label>
-                            <input type="text" id="cat" class="form-control" pattern="^[a-zA-Z0-9]*$" ng-model="edit.collection.category">
+                            <input type="text" id="cat" name="category" class="form-control" pattern="^[a-zA-Z0-9- ]*$" ng-model="edit.collection.category">
+                            <p class="text text-danger" ng-if="edit.editForm.category.$valid === false">Това поле може да съдържа само букви и цифри.</p>
+                        </div>
+                        <div class="form-group">
+                            <label for="addWord">Добави дума в колекцията</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="addWord" id="addWord" placeholder="Нова дума" ng-model="edit.newWord" pattern="^[a-zA-Z]*$">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" ng-click="edit.addWord()">Добави</button>
+                                </span>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label>Думи в колекцията</label>
+                            <button type="button" class="btn btn-default btn-block no-bottom-border" ng-click="edit.removeAllWords()">
+                                Премахни всички думи
+                            </button>
                             <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="word in edit.collection.words">
-                                    {{word}}
+                                <li class="list-group-item no-top-border" ng-repeat="word in edit.collection.words track by $index">
+                                    <span>{{word}}</span>
+                                    <span class="pull-right">
+                                        <button type="button" class="btn btn-danger btn-xs" ng-click="edit.removeWord($index)">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </span>
                                 </li>
                             </ul>
                         </div>
