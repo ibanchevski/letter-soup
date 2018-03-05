@@ -1,4 +1,5 @@
 const Teacher = require('../classes/Teacher');
+const Collection = require('../classes/Collection');
 
 module.exports.registerTeacher = function(req, res) {
     //TODO: Validate input!
@@ -21,43 +22,33 @@ module.exports.login = function(req, res) {
 };
 
 module.exports.createCollection = function(req, res) {
-    const parsedCollection = {};
-    parsedCollection.title = String(req.body.collection.title);
-    parsedCollection.category = String(req.body.collection.category);
-    parsedCollection.words = req.body.collection.words.map(function(word) {
+    const title = String(req.body.collection.title);;
+    const category = String(req.body.collection.category);;
+    const words = req.body.collection.words.map(function (word) {
         return String(word);
     });
-    
-    const teacher = new Teacher(req.decoded.email)
-    teacher
-        .createCollection(parsedCollection)
-        .then(function() {
-            res.send('Колекцията е създадена успешно!');
-        }, function(error) {
-            res.status(500).send(error);
-        });
-};
-
-module.exports.getAllCollections = function(req, res) {
-    const teacher = new Teacher(req.decoded.email);
-    teacher
-        .getAllCollections()
-        .then(collections => {
-            res.send(collections);
-        }, error => {
-            res.status(500).send(error);
-        });
-};
-
-module.exports.getCollectionById = function(req, res) {
-    const teacher = new Teacher(req.decoded.email);
-    const collectionId = String(req.params.collectionId);
-    teacher
-        .getCollectionById(collectionId)
+    Collection
+        .createCollection(req.decoded.email, title, words, category)
         .then(function(collection) {
-            res.json(collection);
+            res.send("Колекцията е създадена успешно!");
         }, function(error) {
-            console.log(error);
-            res.status(500).send(error);
+            // TODO: Log error
+            res.status(500).send('Възникна грешка при създаване на колекцията!');
+        });
+};
+
+// Gets collection by id if no id is provided all teacher's collections are returned
+module.exports.getCollection = function(req, res) {
+    const collectionId = req.params.collectionId === undefined 
+        ? undefined
+        : String(req.params.collectionId);
+    const collection = new Collection(req.decoded.email, collectionId);
+    collection
+        .getCollections()
+        .then(function(collections) {
+            res.send(collections);
+        }, function(error) {
+            cosole.log(error);
+            res.status(500).send('Възникна грешка! Моля, опитайте пак.');
         });
 };

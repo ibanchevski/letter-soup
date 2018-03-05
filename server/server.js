@@ -12,10 +12,10 @@ const PuzzleController  = require('./controllers/Puzzle');
 const cookiesParser     = require('./modules/CookiesParser');
 
 // Config vars
-const app = express();
+const app    = express();
 const router = express.Router();
 const config = require('./config');
-const PORT = config.PORT || 80;
+const PORT   = config.PORT || 80;
 
 // Connect to the LOCAL database
 mongoose.connect('mongodb://localhost/test', {
@@ -47,7 +47,6 @@ app.post('/teacher', TeacherController.registerTeacher);
 app.post('/login', TeacherController.login);
 
 router.get('/token/valid', TokenController.validate);
-// router.get('/puzzle/:puzzleCode/valid', PuzzleController.validatePuzzleCode);
 
 // ============ AUTHENTICATION-REQUIRED ROUTES ============== //
 // Validate token on every request and save the decoded info (email) in the req object
@@ -79,13 +78,9 @@ router.use(function (req, res, next) {
     });
 });
 
+router.get('/collection/:collectionId?', TeacherController.getCollection);
 router.post('/collection', TeacherController.createCollection);
-// TODO: Redesign the collection routes
-// GET /collection -> gets all collections
-// GET /collection/:id -> gets single collection
-router.get('/collection/all', TeacherController.getAllCollections);
-router.get('/collection/:collectionId', TeacherController.getCollectionById);
-
+router.put('/collection/:collectionId', TeacherController.updateCollection);
 // Use Express router for routing
 app.use('/api', router);
 

@@ -8,7 +8,7 @@ function EditCollectionCtrl($stateParams, CollectionService, Notification, $stat
 
     // Pull collection data
     CollectionService
-        .getCollectionById(collectionId)
+        .getCollection(collectionId)
         .then(function(collection) {
             _collection = collection;
             vm.collection = collection;

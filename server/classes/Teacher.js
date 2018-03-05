@@ -1,11 +1,12 @@
 const TeacherModel = require('../models/Teacher');
 const WordsCollectionModel = require('../models/WordsCollection');
 
-const Q = require('q');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const Q        = require('q');
+const bcrypt   = require('bcrypt');
+const jwt      = require('jsonwebtoken');
+const ObjectId = require('mongoose').Types.ObjectId;
 
-const config = require('../config');
+const config     = require('../config');
 const saltRounds = 8;
 
 class Teacher {
@@ -88,76 +89,22 @@ class Teacher {
     }
 
     /**
-     * Creates a teacher collection by given collection object, which holds
-     * all the necessary data about the collection
-     * @param {object} collectionObj Containing collections' title, words and category
+     * Adds collection id into teacher's collections (referencing)
+     * @param {object} collectionId The id of the collection to be added
      */
-    createCollection(collectionObj) {
+    addCollectionReference(collectionId) {
         const deferred = Q.defer();
-        const self = this;
-        collectionObj.teacher = this._email;
-        const wordsColl = new WordsCollectionModel({
-            title: String(collectionObj.title),
-            teacher: String(this._email),
-            words: collectionObj.words,
-            category: String(collectionObj.category) || ''
-        });
+        if (typeof collectionId !== 'object') {
+            collectionId = ObjectId(collectionId);
+        }
 
-        wordsColl.save(function(error, collectionDoc) {
-            if (error) {
-                // TODO: Add error handler (logger?)
-                deferred.reject('Грешка! Моля, опитайте пак!');
-                return;
-            }
-
-            // Add reference of the collection to the teacher model
-            TeacherModel
-                .updateOne({ "email": self._email }, { $push: { wordCollections: collectionDoc._id } }, function(error) {
-                    if (error) {
-                        // TODO: Handle the error
-                    }
-                    deferred.resolve();
-                });
-        });
-
-        return deferred.promise;
-    }
-
-    getAllCollections() {
-        const deferred = Q.defer();
-
-        TeacherModel.findOne({ "email": this._email }, 'wordCollections', function(error, teacherDoc) {
-            if (error) {
-                deferred.reject(new Error('Грешка при изтеглянето на колекциите!'));
-                return;
-            }
-            WordsCollectionModel.find({ "_id": { $in:  teacherDoc.wordCollections} }, function(error, wordCollections) {
-                if (error) {
-                    deferred.reject(new Error('Грешка при изтеглянето на колекциите!'));
-                    return;
-                }
-                deferred.resolve(wordCollections);
+        TeacherModel
+            .updateOne({ "email": this._email }, { $push: {"wordCollections": collectionId} })
+            .then(function() {
+                deferred.resolve();
+            }, function(error) {
+                deferred.reject(error);
             });
-        });
-
-        return deferred.promise;
-    }
-
-    getCollectionById(id) {
-        const deferred = Q.defer();
-
-        WordsCollectionModel.findOne({"_id": id, "teacher": this._email}, function(error, collection) {
-            if (error) {
-                // TODO: Error handling
-                deferred.reject('Грешка при изтеглянето на колекцията!');
-                return;
-            } else if (collection === null) {
-                deferred.reject('Колекцията не беше намерена!');
-                return;
-            }
-            deferred.resolve(collection);
-        });
-
         return deferred.promise;
     }
 }

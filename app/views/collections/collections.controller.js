@@ -3,7 +3,7 @@ function CollectionsCtrl(CollectionService) {
     vm.collections;
     vm.error = '';
     CollectionService
-        .getAllCollections()
+        .getCollection()
         .then(function(collections) {
             collections = collections.sort(function(coll, nextColl) {
                 return nextColl.words.length - coll.words.length;
