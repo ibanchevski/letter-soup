@@ -78,8 +78,30 @@ class Collection {
         return deferred.promise;
     }
 
+    /**
+     * Updates collection details (title, category, words)
+     * @param {string} title New collection's title
+     * @param {array} words The update words array
+     * @param {string} category Collection's new category
+     */
     update(title, words, category) {
-
+        const deferred = Q.defer();
+        const updateQuery = {
+            $set: {
+                "title": title,
+                "words": words,
+                "category": category
+            }
+        };
+        WordCollectionModel
+            .findByIdAndUpdate(this._id)
+            .update(updateQuery)
+            .then(function(updatedCollection) {
+                deferred.resolve(updatedCollection);
+            }, function(error) {
+                deferred.reject(error);
+            });
+        return deferred.promise;
     }
 }
 module.exports = Collection;

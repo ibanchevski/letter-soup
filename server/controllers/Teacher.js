@@ -52,3 +52,20 @@ module.exports.getCollection = function(req, res) {
             res.status(500).send('Възникна грешка! Моля, опитайте пак.');
         });
 };
+
+module.exports.editCollection = function(req, res) {
+    const collectionObj = req.body.collection;
+    const collectionId = String(req.params.collectionId);
+    const newTitle = String(collectionObj.title);
+    const newCategory = String(collectionObj.category);
+    const newWords = collectionObj.words.map(w => { return String(w) });
+    const collection = new Collection(req.decoded.email, collectionId);
+    collection
+        .update(newTitle, newWords, newCategory)
+        .then(function() {
+            res.send('Колекцията е променена успешно!');
+        }, function(error) {
+            console.log(error);
+            res.status(500).send('Възникна грешка при редакцията на колекцията!');
+        });
+};

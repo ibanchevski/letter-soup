@@ -39,7 +39,7 @@ function EditCollectionCtrl($stateParams, CollectionService, Notification, $stat
         if (vm.editForm.addWord.$valid === false) {
             Notification.error({
                 title: "Грешка!",
-                message: "Думите в колекцията могат да съдържат само букви!"
+                message: "Думите в колекцията могат да съдържат само букви (без интервал)!"
             });
             return;
         }
@@ -66,7 +66,11 @@ function EditCollectionCtrl($stateParams, CollectionService, Notification, $stat
         CollectionService
             .updateCollection(_collection._id, vm.collection)
             .then(function(response) {
-
+                Notification.success({
+                    title: 'Готово!',
+                    message: response
+                });
+                $state.go('teacher.collections');
             }, function(error) {
                 console.log(error);
                 Notification.error({
