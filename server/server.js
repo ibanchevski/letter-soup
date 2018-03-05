@@ -81,7 +81,7 @@ router.use(function (req, res, next) {
 router.get('/collection/:collectionId?', TeacherController.getCollection);
 router.post('/collection', TeacherController.createCollection);
 router.put('/collection/:collectionId', TeacherController.editCollection);
-
+router.delete('/collection/:collectionId', TeacherController.deleteCollection);
 // Use Express router for routing
 app.use('/api', router);
 

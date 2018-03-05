@@ -103,5 +103,22 @@ class Collection {
             });
         return deferred.promise;
     }
+
+    /** 
+     * Removes collection by given _id
+    */
+    deleteCollection() {
+        const deferred = Q.defer();
+
+        WordCollectionModel
+            .deleteOne({ "teacher": this._teacherEmail, "_id": this._id })
+            .then(function() {
+                deferred.resolve();
+            }, function(error) {
+                deferred.reject(error);
+            });
+
+        return deferred.promise;
+    }
 }
 module.exports = Collection;

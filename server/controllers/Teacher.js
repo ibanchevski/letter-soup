@@ -69,3 +69,16 @@ module.exports.editCollection = function(req, res) {
             res.status(500).send('Възникна грешка при редакцията на колекцията!');
         });
 };
+
+module.exports.deleteCollection = function(req, res) {
+    const collection = new Collection(req.decoded.email, String(req.params.collectionId));
+    collection
+        .deleteCollection()
+        .then(function() {
+            res.send('Колекцията изтрита успешно.');
+        }, function(error) {
+            console.log(error);
+            res.status(500).send('Възникна грешка при изтриването на колекцията!');
+        });
+
+};

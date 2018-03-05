@@ -65,6 +65,28 @@ function collectionService($q, $http) {
             .then(function(res) {
                 deferred.resolve(res.data);
             }, function(error) {
+                if (error.status === 404) {
+                    deferred.reject('Възникна грешка при свързването със сървъра. Моля, опитайте по-късно!');
+                    return;
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+
+    function deleteCollection(id) {
+        var deferred = $q.defer();
+
+        $http
+            .delete('/api/collection/' + id)
+            .then(function() {
+                deferred.resolve();
+            }, function(error) {
+                if (error.status === 404) {
+                    deferred.reject('Възникна грешка при свързването със сървъра. Моля, опитайте по-късно!');
+                    return;
+                }
                 deferred.reject(error.data);
             });
 
@@ -74,7 +96,8 @@ function collectionService($q, $http) {
     return {
         createCollection: createCollection,
         getCollection: getCollection,
-        updateCollection: updateCollection 
+        updateCollection: updateCollection,
+        deleteCollection: deleteCollection
     }
 }
 collectionService.$inject = ['$q', '$http'];
