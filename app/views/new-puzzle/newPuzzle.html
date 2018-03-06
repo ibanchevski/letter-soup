@@ -18,9 +18,7 @@
                         </div>
                         <div class="form-group">
                             <label for="collection">Колекция</label>
-                            <select id="collection" class="form-control"
-                            ng-model="puzzle.currentCollection"
-                            ng-options="collection as collection.title for collection in puzzle.collections"></select>
+                            <select id="collection" class="form-control" ng-model="puzzle.currentCollection" ng-options="collection as collection.title for collection in puzzle.collections"></select>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
@@ -42,7 +40,7 @@
                                     <li class="list-group-item" ng-repeat="word in puzzle.puzzleWords">
                                         <span>
                                             {{word}}
-                                        </span>    
+                                        </span>
                                         <span class="pull-right">
                                             <button type="button" class="btn btn-danger btn-xs" ng-click="puzzle.removeWord(word)">
                                                 <i class="fas fa-times"></i>
@@ -52,7 +50,16 @@
                                 </ul>
                             </div>
                         </div>
-                        <input type="submit" value="Създай" class="btn btn-default btn-block">
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default btn-block">
+                                <i class="fas fa-plus-circle"></i>
+                                Създай
+                            </button>
+                        </div>
+                        <a ui-sref="teacher.collections" class="btn btn-default btn-block">
+                            <i class="fas fa-arrow-circle-left"></i>
+                            Обратно
+                        </a>
                     </form>
                 </div>
             </div>

@@ -9,6 +9,14 @@ function NewPuzzleCtrl(CollectionService, puzzleService, Notification, $state) {
     CollectionService
         .getCollection()
         .then(function(collections) {
+            if (collections.length === 0) {
+                $state.go('teacher.collections');
+                Notification.warning({
+                    title: 'Нямате колекции!',
+                    message: 'За да създадете пъзел, първо създайте колекция.',
+                    replaceMessage: true
+                });
+            }
             vm.collections = collections;
             vm.currentCollection = collections[0];
         }, function(error) {
@@ -39,11 +47,19 @@ function NewPuzzleCtrl(CollectionService, puzzleService, Notification, $state) {
     };
 
     vm.createPuzzle = function() {
+        if (vm.puzzleWords.length === 0) {
+            Notification.warning({
+                title: 'Внимание!',
+                message: 'Добавете думи в пъзела.',
+                replaceMessage: true
+            });
+            return;
+        }
         puzzleService
             .createPuzzle(vm.puzzleSize, vm.puzzleWords)
             .then(function() {
                 Notification.success("Пъзелът беше създаден успешно!");
-                $state.go('teacher.puzzels');
+                $state.go('teacher.puzzles');
             }, function(error) {
                 Notification.error({
                     title: "Грешка",
