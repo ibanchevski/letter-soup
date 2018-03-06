@@ -59,11 +59,18 @@
                     <div class="row">
                         <hr>
                     </div>
-                    <!-- Collection words -->
                     <div class="row">
                         <div class="col-md-12">
+                            <button type="button" class="btn btn-default btn-block no-bottom-border" ng-click="collapsedWords = !collapsedWords">
+                                Покажи думите <span class="caret"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- Collection words -->
+                    <div class="row">
+                        <div class="col-md-12" uib-collapse="!collapsedWords">
                             <ul class="list-group no-margin-bottom">
-                                <li class="list-group-item" ng-repeat="word in collection.words">
+                                <li class="list-group-item no-top-border" ng-repeat="word in collection.words">
                                     {{word}}
                                 </li>
                             </ul>
