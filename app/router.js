@@ -44,6 +44,16 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             controller: 'NewCollectionCtrl',
             controllerAs: 'collection'
         })
+        .state('teacher.createPuzzle', {
+            url: '/new-puzzle',
+            templateUrl: '/views/new-puzzle/newPuzzle.html',
+            controller: 'NewPuzzleCtrl',
+            controllerAs: 'puzzle'
+        })
+        .state('teacher.puzzles', {
+            url: '/created-puzzles',
+            template: 'Works'
+        })
         .state('teacher.editCollection', {
             url: '/edit-collection/:collectionId',
             params: { collectionId: null },

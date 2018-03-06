@@ -13,8 +13,27 @@ function puzzleService($http, $q) {
         return deferred.promise;
     }
 
+    function createPuzzle(size, words) {
+        var deferred = $q.defer();
+
+        $http
+            .post('/api/puzzle', { size: size, words: words })
+            .then(function(res) {
+                deferred.resolve(res.data);
+            }, function(error) {
+                if (error.status === '404') {
+                    deferred.reject('Грешка при свързването! Моля, опитайте пак.');
+                    return;
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+    
     return {
-        validatePuzzleCode: validatePuzzleCode
+        validatePuzzleCode: validatePuzzleCode,
+        createPuzzle: createPuzzle
     }
 }
 puzzleService.$inject = ['$http', '$q'];

@@ -1,5 +1,6 @@
-const Teacher = require('../classes/Teacher');
+const Teacher    = require('../classes/Teacher');
 const Collection = require('../classes/Collection');
+const Puzzle     = require('../classes/Puzzle');
 
 module.exports.registerTeacher = function(req, res) {
     //TODO: Validate input!
@@ -91,5 +92,18 @@ module.exports.generateCollectionLink = function(req, res) {
         }, function(error) {
             console.log(error);
             res.status(500).send('Грешка при генериране на линка. Моля, опитайте пак.');
+        });
+};
+
+module.exports.createPuzzle = function(req, res) {
+    const size = Number(req.body.size);
+    const words = req.body.words.map(w => { return String(w) });
+    Puzzle
+        .createPuzzle(req.decoded.email, words, size)
+        .then(function() {
+            res.send('Пъзела е създаден успешно.');
+        }, function(error) {
+            console.log(error);
+            res.stauts(500).send('Грешка при създаването на пъзела!');
         });
 };

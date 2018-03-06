@@ -1,0 +1,61 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Нов пъзел</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form ng-submit="puzzle.createPuzzle()">
+                        <div class="form-group">
+                            <label for="size">Размер на пъзела</label>
+                            <input type="number" id="size" min="3" max="20" class="form-control" style="max-width: 100px" ng-model="puzzle.puzzleSize">
+                            <small class="text-muted">Матрицата на пъзела ще бъде квадратна</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="collection">Колекция</label>
+                            <select id="collection" class="form-control"
+                            ng-model="puzzle.currentCollection"
+                            ng-options="collection as collection.title for collection in puzzle.collections"></select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="">Думи в колекцията</label>
+                                <ul class="list-group">
+                                    <li class="list-group-item" ng-repeat="word in puzzle.currentCollection.words">
+                                        <span>{{word}}</span>
+                                        <span class="pull-right">
+                                            <button type="button" class="btn btn-default btn-xs" ng-click="puzzle.addWordToPuzzle(word)">
+                                                <i class="fas fa-angle-double-right"></i>
+                                            </button>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="">Думи в пъзела</label>
+                                <ul class="list-group">
+                                    <li class="list-group-item" ng-repeat="word in puzzle.puzzleWords">
+                                        <span>
+                                            {{word}}
+                                        </span>    
+                                        <span class="pull-right">
+                                            <button type="button" class="btn btn-danger btn-xs" ng-click="puzzle.removeWord(word)">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <input type="submit" value="Създай" class="btn btn-default btn-block">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
