@@ -2,7 +2,7 @@ function puzzleService($http, $q) {
     function validatePuzzleCode(code) {
         var deferred = $q.defer();
 
-        $http.get('/api/puzzle/' + String(code) + '/valid')
+        $http.get('/api/puzzle/' + String(code))
             .then(
                 res => deferred.resolve(res.data),
                 err => err.status === '404' 

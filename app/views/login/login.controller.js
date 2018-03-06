@@ -43,17 +43,13 @@ function LoginCtrl($cookies, $state, authenticationService, Notification, puzzle
     };
 
     vm.validatePuzzleCode = function() {
+        if (vm.puzzleCode.length === 0) {
+            return;
+        }
         puzzleService
             .validatePuzzleCode(vm.puzzleCode)
             .then(function onResponse(isValid) {
-                if (isValid === false) {
-                    Notification.error({
-                        title: 'Грешка!',
-                        message: 'Въведеният код е невалиден!'
-                    });
-                    return;
-                }
-                $state.go('solve', { puzzleCode: vm.puzzleCode });
+                
             }, function onError(error) {
                 Notification.error({
                     title: 'Грешка!',

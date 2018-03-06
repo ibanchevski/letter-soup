@@ -48,6 +48,9 @@ router.post('/login', TeacherController.login);
 
 router.get('/token/valid', TokenController.validate);
 
+router.get('/puzzle/:puzzleCode', PuzzleController.validatePuzzleToken);
+
+
 // ============ AUTHENTICATION-REQUIRED ROUTES ============== //
 // Validate token on every request and save the decoded info (email) in the req object
 // TODO: Probably move to a module

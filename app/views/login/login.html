@@ -48,12 +48,18 @@
                 </div>
                 <!-- PUZZLE CODE VALIDATION INPUT -->
                 <div class="panel-body animated fadeIn" ng-if="login.render === 'puzzle'">
-                    <form novalidate ng-submit="login.validatePuzzleCode()">
+                    <form name="login.puzzleCodeForm" novalidate ng-submit="login.puzzleCodeForm.$invalid || login.validatePuzzleCode()">
                         <div class="form-group">
-                            <input type="text" class="form-control"
+                            <input
+                            type="text"
+                            class="form-control"
+                            name="codeBox"
                             placeholder="Въведете кода на пъзела"
                             pattern="^[a-zA-Z0-9]*$"
                             ng-model="login.puzzleCode">
+                            <p class="text-danger" ng-if="login.puzzleCodeForm.codeBox.$invalid">
+                                Кода не е в подходящия формат. (Може да съдържа само букви и цифри без разстояние.)
+                            </p>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-default btn-block">Генерирай</button>
