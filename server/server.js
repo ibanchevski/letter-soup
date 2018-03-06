@@ -42,9 +42,9 @@ app.use(bodyParser.json());
 
 // ============ UNAUTHORISED ROUTES ============== //
 
-app.post('/teacher', TeacherController.registerTeacher);
+router.post('/teacher', TeacherController.registerTeacher);
 
-app.post('/login', TeacherController.login);
+router.post('/login', TeacherController.login);
 
 router.get('/token/valid', TokenController.validate);
 
@@ -82,6 +82,8 @@ router.get('/collection/:collectionId?', TeacherController.getCollection);
 router.post('/collection', TeacherController.createCollection);
 router.put('/collection/:collectionId', TeacherController.editCollection);
 router.delete('/collection/:collectionId', TeacherController.deleteCollection);
+router.put('/collection/:collectionId/link', TeacherController.generateCollectionLink);
+
 // Use Express router for routing
 app.use('/api', router);
 

@@ -1,4 +1,4 @@
 module.exports = {
-    "PORT": 80,
+    "PORT": 3001,
     "tokenSecret": 'z0oGLo3XQV'
 };

@@ -15,24 +15,25 @@
                     <form name="edit.editForm" ng-submit="edit.editForm.$invalid || edit.submit()" novalidate>
                         <div class="form-group">
                             <label for="title">Заглавие</label>
-                            <input type="text" id="title" name="title" class="form-control" pattern="^[a-zA-Z0-9- ]*$" ng-model="edit.collection.title" required>
+                            <input type="text" id="title" name="title" class="form-control" pattern="^[a-zA-Zа-яА-Я0-9-_. ]*$" ng-model="edit.collection.title" required>
                             <p class="text text-danger" ng-if="edit.editForm.title.$valid === false">Това поле е задължително! Може да съдържа само букви и цифри.</p>
                         </div>
                         <div class="form-group">
                             <label for="cat">Категория
                                 <span class="text-muted">(Незадължително)</span>
                             </label>
-                            <input type="text" id="cat" name="category" class="form-control" pattern="^[a-zA-Z0-9- ]*$" ng-model="edit.collection.category">
+                            <input type="text" id="cat" name="category" class="form-control" pattern="^[a-zA-Zа-яА-Я0-9- ]*$" ng-model="edit.collection.category">
                             <p class="text text-danger" ng-if="edit.editForm.category.$valid === false">Това поле може да съдържа само букви и цифри.</p>
                         </div>
                         <div class="form-group">
                             <label for="addWord">Добави дума в колекцията</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="addWord" id="addWord" placeholder="Нова дума" ng-model="edit.newWord" pattern="^[a-zA-Z]*$">
+                                <input type="text" class="form-control" name="addWord" id="addWord" placeholder="Нова дума" ng-model="edit.newWord" pattern="^[a-zA-Zа-яА-Я0-9-]*$">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" ng-click="edit.addWord()">Добави</button>
                                 </span>
                             </div>
+                            <p class="text-danger" ng-if="edit.editForm.addWord.$invalid">Думите в колекцията могат да съдържат само букви (без интервал).</p>
                         </div>
                         <div class="form-group">
                             <label>Думи в колекцията</label>

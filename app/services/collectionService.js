@@ -93,11 +93,30 @@ function collectionService($q, $http) {
         return deferred.promise;
     }
 
+    function generateLink(collectionId) {
+        var deferred = $q.defer()
+
+        $http
+            .put('/api/collection/' + collectionId + '/link')
+            .then(function(res) {
+                deferred.resolve(res.data);
+            }, function(error) {
+                if (error.status === 404) {
+                    deferred.reject('Възникна грешка при свързването със сървъра. Моля, опитайте по-късно!');
+                    return;
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         createCollection: createCollection,
         getCollection: getCollection,
         updateCollection: updateCollection,
-        deleteCollection: deleteCollection
+        deleteCollection: deleteCollection,
+        generateLink: generateLink
     }
 }
 collectionService.$inject = ['$q', '$http'];

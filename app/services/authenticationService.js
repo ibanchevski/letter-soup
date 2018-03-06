@@ -2,7 +2,7 @@ function authenticationService($q, $http) {
     function registerTeacher(teacherObject) {
         var deferred = $q.defer();
 
-        $http.post('/teacher', {teacher: teacherObject})
+        $http.post('/api/teacher', {teacher: teacherObject})
             .then(function(res) {
                 deferred.resolve(res.data);
             }, function(error) {
@@ -20,7 +20,7 @@ function authenticationService($q, $http) {
     function authenticateTeacher(email, password) {
         var deferred = $q.defer();
 
-        $http.post('/login', {email: email, password: password})
+        $http.post('/api/login', {email: email, password: password})
             .then(function(res) {
                 // Return the signed token to be saved in a cookie
                 deferred.resolve(res.data);

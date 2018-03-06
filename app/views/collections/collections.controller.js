@@ -3,16 +3,7 @@ function CollectionsCtrl(CollectionService, Notification) {
     vm.collections;
     vm.error = '';
 
-    CollectionService
-        .getCollection()
-        .then(function (collections) {
-            collections = collections.sort(function (coll, nextColl) {
-                return nextColl.words.length - coll.words.length;
-            });
-            vm.collections = collections;
-        }, function (error) {
-            vm.error = error;
-        });
+    pullCollections();
 
     vm.deleteCollection = function (id, collectionIndex) {
         if (confirm("Изтриване на колекцията?") === false) {
@@ -31,6 +22,32 @@ function CollectionsCtrl(CollectionService, Notification) {
                     title: 'Грешка!',
                     message: error
                 });
+            });
+    };
+
+    vm.generateLink = function (id) {
+        CollectionService
+            .generateLink(id)
+            .then(function(link) {
+                pullCollections();
+            }, function(error) {
+                Notification.error({
+                    title: 'Грешка!',
+                    message: error
+                });
+            });
+    };
+
+    function pullCollections() {
+        CollectionService
+            .getCollection()
+            .then(function (collections) {
+                collections = collections.sort(function (coll, nextColl) {
+                    return nextColl.words.length - coll.words.length;
+                });
+                vm.collections = collections;
+            }, function (error) {
+                vm.error = error;
             });
     }
 }

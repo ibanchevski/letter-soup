@@ -4,6 +4,7 @@ const WordCollectionModel = require('../models/WordsCollection');
 // Modules and classes
 const Q = require('q');
 const Teacher = require('./Teacher');
+const randomstring = require('randomstring');
 
 class Collection {
     constructor(teacherEmail, id) {
@@ -64,15 +65,15 @@ class Collection {
 
         WordCollectionModel
             .find(searchQuery)
-            .sort({"creationDate": 'descending'})
-            .then(function(collections) {
+            .sort({ "creationDate": 'descending' })
+            .then(function (collections) {
                 if (hasId) {
                     // User probably request one specific collection
                     deferred.resolve(collections[0]);
-                    return;                    
+                    return;
                 }
                 deferred.resolve(collections);
-            }, function(error) {
+            }, function (error) {
                 deferred.reject(error);
             });
         return deferred.promise;
@@ -96,9 +97,9 @@ class Collection {
         WordCollectionModel
             .findByIdAndUpdate(this._id)
             .update(updateQuery)
-            .then(function(updatedCollection) {
+            .then(function (updatedCollection) {
                 deferred.resolve(updatedCollection);
-            }, function(error) {
+            }, function (error) {
                 deferred.reject(error);
             });
         return deferred.promise;
@@ -112,11 +113,26 @@ class Collection {
 
         WordCollectionModel
             .deleteOne({ "teacher": this._teacherEmail, "_id": this._id })
-            .then(function() {
+            .then(function () {
                 deferred.resolve();
-            }, function(error) {
+            }, function (error) {
                 deferred.reject(error);
             });
+
+        return deferred.promise;
+    }
+
+    generateCollectionLink() {
+        const deferred = Q.defer();
+        const link = randomstring.generate(8);
+        console.log(this._id);
+        WordCollectionModel.update({ "_id": this._id }, { $set: { "link": link } }, function(error) {
+            if (error) {
+                deferred.reject(error);
+                return;
+            }
+            deferred.resolve();
+        });
 
         return deferred.promise;
     }
