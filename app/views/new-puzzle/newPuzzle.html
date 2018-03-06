@@ -12,6 +12,10 @@
                 <div class="panel-body">
                     <form ng-submit="puzzle.createPuzzle()">
                         <div class="form-group">
+                            <label for="title">Заглавие</label>
+                            <input type="text" id="title" class="form-control" ng-model="puzzle.puzzleTitle">
+                        </div>
+                        <div class="form-group">
                             <label for="size">Размер на пъзела</label>
                             <input type="number" id="size" min="3" max="20" class="form-control" style="max-width: 100px" ng-model="puzzle.puzzleSize">
                             <small class="text-muted">Матрицата на пъзела ще бъде квадратна</small>

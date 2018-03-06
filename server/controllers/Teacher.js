@@ -85,9 +85,10 @@ module.exports.deleteCollection = function(req, res) {
 
 module.exports.createPuzzle = function(req, res) {
     const size = Number(req.body.size);
+    const title = Number(req.body.title);
     const words = req.body.words.map(w => { return String(w) });
     Puzzle
-        .createPuzzle(req.decoded.email, words, size)
+        .createPuzzle(req.decoded.email, words, size, title)
         .then(function() {
             res.send('Пъзела е създаден успешно.');
         }, function(error) {

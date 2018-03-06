@@ -5,6 +5,7 @@ function NewPuzzleCtrl(CollectionService, puzzleService, Notification, $state) {
     vm.currentCollection;
     vm.puzzleWords = [];
     vm.puzzleSize = 10;
+    vm.puzzleTitle = '';
 
     CollectionService
         .getCollection()
@@ -56,7 +57,7 @@ function NewPuzzleCtrl(CollectionService, puzzleService, Notification, $state) {
             return;
         }
         puzzleService
-            .createPuzzle(vm.puzzleSize, vm.puzzleWords)
+            .createPuzzle(vm.puzzleSize, vm.puzzleWords, vm.puzzleTitle)
             .then(function() {
                 Notification.success("Пъзелът беше създаден успешно!");
                 $state.go('teacher.puzzles');

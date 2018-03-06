@@ -5,5 +5,6 @@ module.exports = mongoose.model('Puzzle', mongoose.Schema({
     creationDate: { type: Date, default: new Date() },
     words: Array,
     size: Number,
-    code: String
+    code: String,
+    title: String
 }));

@@ -34,11 +34,13 @@ class Puzzle {
      * @param {string} teacher The email of the teacher who creates the puzzle
      * @param {array} words The puzzle's words array
      * @param {number} size The puzzle's size
+     * @param {string} title The puzzle's title
      */
-    static createPuzzle(teacher, words, size) {
+    static createPuzzle(teacher, words, size, title) {
         const deferred = Q.defer();
         const puzzleCode = randomstring.generate(8);
         const pzl = new PuzzleModel({
+            title: String(title),
             teacher: String(teacher),
             size: Number(size),
             words: words,

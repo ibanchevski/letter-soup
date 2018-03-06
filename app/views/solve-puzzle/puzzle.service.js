@@ -13,11 +13,11 @@ function puzzleService($http, $q) {
         return deferred.promise;
     }
 
-    function createPuzzle(size, words) {
+    function createPuzzle(size, words, title) {
         var deferred = $q.defer();
 
         $http
-            .post('/api/puzzle', { size: size, words: words })
+            .post('/api/puzzle', { size: size, words: words, title: title })
             .then(function(res) {
                 deferred.resolve(res.data);
             }, function(error) {

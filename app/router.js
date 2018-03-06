@@ -52,7 +52,9 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
         })
         .state('teacher.puzzles', {
             url: '/created-puzzles',
-            template: 'Works'
+            templateUrl: '/views/puzzles/puzzles.html',
+            controller: 'CreatedPuzzlesCtrl',
+            controllerAs: 'puzzles'
         })
         .state('teacher.editCollection', {
             url: '/edit-collection/:collectionId',
