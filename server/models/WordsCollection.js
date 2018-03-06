@@ -6,6 +6,5 @@ module.exports = mongoose.model('WordsCollection', mongoose.Schema({
     category: String,
     teacher: String,
     solveId: String,
-    creationDate: { type: Date, default: new Date() },
-    link: String
+    creationDate: { type: Date, default: new Date() }
 }));

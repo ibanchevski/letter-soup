@@ -83,18 +83,6 @@ module.exports.deleteCollection = function(req, res) {
         });
 };
 
-module.exports.generateCollectionLink = function(req, res) {
-    const collection = new Collection(req.decoded.emai, req.params.collectionId);
-    collection
-        .generateCollectionLink()
-        .then(function(link) {
-            res.send(link);
-        }, function(error) {
-            console.log(error);
-            res.status(500).send('Грешка при генериране на линка. Моля, опитайте пак.');
-        });
-};
-
 module.exports.createPuzzle = function(req, res) {
     const size = Number(req.body.size);
     const words = req.body.words.map(w => { return String(w) });

@@ -85,7 +85,6 @@ router.get('/collection/:collectionId?', TeacherController.getCollection);
 router.post('/collection', TeacherController.createCollection);
 router.put('/collection/:collectionId', TeacherController.editCollection);
 router.delete('/collection/:collectionId', TeacherController.deleteCollection);
-router.put('/collection/:collectionId/link', TeacherController.generateCollectionLink);
 
 router.post('/puzzle', TeacherController.createPuzzle);
 // Use Express router for routing

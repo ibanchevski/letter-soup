@@ -34,9 +34,6 @@
                         </div>
                         <div class="col-md-6">
                             <div class="btn-group pull-right">
-                                <button class="btn btn-default" uib-tooltip="Генерирай линк" tooltip-append-to-body="true" ng-click="collections.generateLink(collection._id)">
-                                    <i class="fas fa-link"></i>
-                                </button>
                                 <a ui-sref="teacher.editCollection({collectionId: collection._id})" class="btn btn-default" uib-tooltip="Редакция на колекцията"
                                     tooltip-append-to-body="true">
                                     <i class="fas fa-edit"></i>
@@ -45,15 +42,6 @@
                                     <i class="fas fa-times"></i>
                                 </button>
                             </div>
-                        </div>
-                    </div>
-                    <div class="row" ng-if="collection.link">
-                        <div class="col-md-8"></div>
-                        <div class="col-md-4">
-                            <p>
-                                Link:
-                                <h4 class="text-info">{{collection.link}}</h4>
-                            </p>
                         </div>
                     </div>
                     <div class="row">

@@ -25,19 +25,6 @@ function CollectionsCtrl(CollectionService, Notification) {
             });
     };
 
-    vm.generateLink = function (id) {
-        CollectionService
-            .generateLink(id)
-            .then(function(link) {
-                pullCollections();
-            }, function(error) {
-                Notification.error({
-                    title: 'Грешка!',
-                    message: error
-                });
-            });
-    };
-
     function pullCollections() {
         CollectionService
             .getCollection()

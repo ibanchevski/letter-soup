@@ -121,20 +121,5 @@ class Collection {
 
         return deferred.promise;
     }
-
-    generateCollectionLink() {
-        const deferred = Q.defer();
-        const link = randomstring.generate(8);
-        console.log(this._id);
-        WordCollectionModel.update({ "_id": this._id }, { $set: { "link": link } }, function(error) {
-            if (error) {
-                deferred.reject(error);
-                return;
-            }
-            deferred.resolve();
-        });
-
-        return deferred.promise;
-    }
 }
 module.exports = Collection;
