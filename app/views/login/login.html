@@ -52,6 +52,11 @@
                 <!-- PUZZLE CODE VALIDATION INPUT -->
                 <div class="panel-body animated fadeIn" ng-if="login.render === 'puzzle'">
                     <form name="login.puzzleCodeForm" novalidate ng-submit="login.puzzleCodeForm.$invalid || login.validatePuzzleCode()">
+                        <div class="form-group" ng-if="login.isCodeValid === false">
+                            <div class="alert alert-danger">
+                                Невалиден код!
+                            </div>
+                        </div>
                         <div class="form-group">
                             <input
                             type="text"

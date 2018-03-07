@@ -1,0 +1,53 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header text-center">
+                <h1>Твоите данни</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form name="usr.userForm" ng-submit="usr.userForm.$invalid || usr.createUser()" novalidate>
+                        <div class="form-group">
+                            <label for="names">Име</label>
+                            <input type="text" id="names" name="names" class="form-control" pattern="^[a-zA-Zа-яА-Я0-9-_ ]*$" required ng-model="usr.names">
+                            <p class="text-danger" ng-if="usr.userForm.names.$invalid && usr.userForm.names.$touched">
+                                Полето е задължително и може да съдържа само цифри и букви!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="city">Град</label>
+                            <input type="text" name="city" id="city" class="form-control" pattern="^[a-zA-Zа-яА-Я0-9-_ ]*$" ng-model="usr.city" required>
+                            <p class="text-danger" ng-if="usr.userForm.city.$invalid && usr.userForm.city.$touched">
+                                Полето е задължително и може да съдържа само цифри и букви!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="school">Училище</label>
+                            <input type="text" name="school" id="school" class="form-control" pattern="^[a-zA-Zа-яА-Я0-9- ]*$" ng-model="usr.school" required>
+                            <p class="text-danger" ng-if="usr.userForm.school.$invalid && usr.userForm.school.$touched">
+                                Полето е задължително и може да съдържа само цифри и букви!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <label for="class">Клас</label>
+                            <input type="text" name="class" id="class" class="form-control" pattern="^[a-zA-Zа-яА-Я0-9-_ ]*$" required ng-model="usr.class">
+                            <p class="text-danger" ng-if="usr.userForm.class.$invalid && usr.userForm.class.$touched">
+                                Полето е задължително и може да съдържа само цифри и букви!
+                            </p>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-default btn-block">
+                                Напред
+                            </button>
+                        </div>
+                        <a ui-sref="login" class="btn btn-default btn-block">Към началната страница</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,16 +16,17 @@ class Puzzle {
     static validatePuzzleToken (code) {
         const deferred = Q.defer()
 
-        CollectionModel.findOne({ link: code }, function(error, collection) {
+        PuzzleModel.findOne({ code: code }, function(error, collection) {
             if (error) {
                 deferred.reject(error);
                 return;
             }
             if (collection === null) {
-                deferred.reject(new Error('No collection found!'));
+                // Invalid code
+                deferred.resolve(false);
                 return;
             }
-            deferred.resolve(collection);
+            deferred.resolve(true);
         });
 
         return deferred.promise;

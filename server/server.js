@@ -10,6 +10,7 @@ const TeacherController = require('./controllers/Teacher');
 const TokenController   = require('./controllers/Token');
 const PuzzleController  = require('./controllers/Puzzle');
 const cookiesParser     = require('./modules/CookiesParser');
+const UserController    = require('./controllers/User');
 
 // Config vars
 const app    = express();
@@ -48,7 +49,9 @@ router.post('/login', TeacherController.login);
 
 router.get('/token/valid', TokenController.validate);
 
-router.get('/puzzle/:puzzleCode', PuzzleController.validatePuzzleToken);
+router.get('/puzzle/:puzzleCode/valid', PuzzleController.validatePuzzleToken);
+
+router.post('/user', UserController.createTempUser);
 
 
 // ============ AUTHENTICATION-REQUIRED ROUTES ============== //

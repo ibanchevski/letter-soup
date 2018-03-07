@@ -14,8 +14,27 @@ angular.module('letterSoup').config(function($stateProvider, $urlRouterProvider)
             controllerAs: 'register'
         })
         .state('solve', {
-            url: '/puzzle/puzzleCode',
-            params: { puzzleCode: null  },
+           url: '/solve/:puzzleCode',
+           params: { puzzleCode: null },
+           template: '<ui-view></ui-view>',
+           controller: function($state, $transitions) {
+               var currState = $state.current.name;
+               if (currState !== 'solve.user' && currState !== 'solve.puzzle') {
+                   $state.go('solve.user');
+               }
+               $transitions.onStart({from: 'solve.**', to: 'solve'}, function(trans) {
+                   return trans.router.stateService.target('login');
+               });
+           }
+        })
+        .state('solve.user', {
+            url: '/user',
+            templateUrl: '/views/solve-puzzle/user.html',
+            controller: 'SolvePuzzleUserCtrl',
+            controllerAs: 'usr'
+        })
+        .state('solve.puzzle', {
+            url: '/puzzle',
             templateUrl: '/views/solve-puzzle/puzzle.html',
             controller: 'SolvePuzzleCtrl',
             controllerAs: 'solve'

@@ -6,6 +6,7 @@ function LoginCtrl($cookies, $state, authenticationService, Notification, puzzle
     vm.password = '';
     vm.rememberMe = false;
     vm.puzzleCode = '';
+    vm.isCodeValid;
 
     vm.setRender = function(render) {
         vm.render = render;
@@ -49,7 +50,11 @@ function LoginCtrl($cookies, $state, authenticationService, Notification, puzzle
         puzzleService
             .validatePuzzleCode(vm.puzzleCode)
             .then(function onResponse(isValid) {
-                
+                if (isValid === false) {
+                    vm.isCodeValid = isValid;
+                    return;
+                }
+                $state.go('solve', { puzzleCode: vm.puzzleCode });
             }, function onError(error) {
                 Notification.error({
                     title: 'Грешка!',
