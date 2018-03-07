@@ -41,7 +41,7 @@ function TeacherLayoutCtrl($scope, $cookies, $state, $transitions, authenticatio
 
     // Validate the token on every controller load (page refresh)
     validateToken($state.go, 'login', function() {
-        $state.go('.dashboard');
+        $state.go('.collections');
     });
 
     // Validate the token on all child routes
