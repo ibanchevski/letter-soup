@@ -1,3 +1,16 @@
+.no-selection {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+.incorrect-word {
+  background-color: red !important;
+}
+.correct-word {
+  background-color: lightblue;
+}
 #puzzle-holder {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -50,6 +63,10 @@ span.selectedLetter {
 .no-bottom-border {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
+}
+
+span.wrongLetter {
+  background: red !important;
 }
 
 @media (max-width: 740px) {

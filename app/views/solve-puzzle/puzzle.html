@@ -38,14 +38,9 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<p>
-						Учител:
-						<span><strong>{{ solve.teacher.name }}</strong></span>
-					</p>
-					<p>
-						Училище:
-						<span><strong>{{ solve.teacher.school }}</strong></span>
-					</p>
+					<button type="button" class="btn btn-success btn-lg btn-block">
+						Завърши пъзела
+					</button>
 				</div>
 			</div>
 		</div>
@@ -53,9 +48,44 @@
 	<div class="row">
 		<div class="col-md-12"><hr></div>
 	</div>
-	<div class="row" ng-if="solve.puzzle">
-		<div class="col-md-10 col-md-offset-1">
-			<puzzle matrix="solve.puzzle" word-model="solve.selectedWord"></puzzle>
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<table class="table table-bordered no-margin-bottom no-selection">
+						<tr ng-repeat="row in solve.puzzle track by $index">
+							<td
+							class="text-center"
+							ng-class="{'incorrect-word': word.incorrect === true, 'correct-word': word.incorrect === false}"
+							ng-repeat="word in row track by $index"
+							ng-mousedown="solve.onWordClick(word.letter, $index, $parent.$index)"
+							ng-mouseenter="solve.onWordEnter(word.letter, $index, $parent.$index)"
+							ng-mouseup="solve.onWordUp(word.letter, $index, $parent.$index)">
+								{{word.letter}}
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<!-- <table style="border: 2px solid gray; margin-bottom: 20px">
+				<tr ng-repeat="row in solve.puzzle">
+					<td style="font-size: 1.7em; padding: 0 10px; background-color:#94a0a0; border: 1px solid; color: white" ng-repeat="word in row track by $index">{{word}}</td>
+				</tr>
+			</table> -->
 		</div>
 	</div>
+	<!-- <div class="row" ng-repeat="row in solve.puzzle track by $index" style="border: 1px solid">
+		<div class="col-md-1" ng-repeat="word in row track by $index">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					{{word}}
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!-- <div class="row" ng-if="solve.puzzle">
+		<div class="col-md-10 col-md-offset-1">
+			<puzzle matrix="solve.puzzle" word-model="solve.selectedWord" was-correct="solve.isWordCorrect"></puzzle>
+		</div>
+	</div> -->
 </div>

@@ -3,16 +3,29 @@ function Puzzle($compile) {
 		restrict: 'E',
 		scope: {
 			puzzleMatrix: '=matrix',
-			saveWordIn: '=wordModel'
+			saveWordIn: '=wordModel',
+			wasCorrect: '='
 		},
 		replace: true,
 		template: '<div id="puzzle-holder"></div>',
 		link: function(scope, elem, attr) {
 			var puzzleHolder = angular.element(document.querySelector('#puzzle-holder'))[0];
 			var selectedLetters = [];
+			var selectedLettersIds = [];
 			var mouseDown = 0;
 			var selectedWord;
 			
+			scope.$watch('wasCorrect', function(isCorrect) {
+				if (isCorrect === false) {
+					console.log(selectedLettersIds)
+					selectedLettersIds.forEach(function(letterId) {
+						var letter = angular.element(document.querySelector('#' + letterId))[0];
+						letter.className += ' wrongLetter';
+					});
+				}
+				selectedLettersIds.length = 0;
+			});
+
 			document.onmousedown = function() {
 				mouseDown++;
 			}
@@ -62,11 +75,11 @@ function Puzzle($compile) {
 					selectedLetters.splice(selectedLetters.lastIndexOf(event.target.innerHTML), 1);
 					return;
 				}
-
 				// Make the letter visually selected and push it 
 				// to the array from where a word would be composed
 				event.target.className = 'selectedLetter';
 				event.target.visited = true;
+				selectedLettersIds.push(event.target.id)
 				selectedLetters.push(event.target.innerHTML);
 			}
 		}
