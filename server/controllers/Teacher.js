@@ -85,7 +85,7 @@ module.exports.deleteCollection = function(req, res) {
 
 module.exports.createPuzzle = function(req, res) {
     const size = Number(req.body.size);
-    const title = Number(req.body.title);
+    const title = String(req.body.title);
     const words = req.body.words.map(w => { return String(w) });
     Puzzle
         .createPuzzle(req.decoded.email, words, size, title)
@@ -94,5 +94,17 @@ module.exports.createPuzzle = function(req, res) {
         }, function(error) {
             console.log(error);
             res.stauts(500).send('Грешка при създаването на пъзела!');
+        });
+};
+
+module.exports.getPuzzle = function(req, res) {
+    const puzzle = new Puzzle(null, req.decoded.email);
+    puzzle
+        .getPuzzle()
+        .then(function(puzzles) {
+            res.send(puzzles);
+        }, function(error) {
+            console.log(error);
+            res.status(500).send('Грешка при изтеглянето! Моля, опитайте пак.');
         });
 };

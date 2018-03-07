@@ -5,7 +5,7 @@ function puzzleService($http, $q) {
         $http.get('/api/puzzle/' + String(code))
             .then(
                 res => deferred.resolve(res.data),
-                err => err.status === '404' 
+                err => err.status === 404 
                     ? deferred.reject('Грешка при свързването! Моля, опитайте пак.')
                     : deferred.reject(err.data)
             );
@@ -21,7 +21,7 @@ function puzzleService($http, $q) {
             .then(function(res) {
                 deferred.resolve(res.data);
             }, function(error) {
-                if (error.status === '404') {
+                if (error.status === 404) {
                     deferred.reject('Грешка при свързването! Моля, опитайте пак.');
                     return;
                 }
@@ -31,9 +31,28 @@ function puzzleService($http, $q) {
         return deferred.promise;
     }
     
+    function getPuzzles() {
+        var deferred = $q.defer();
+
+        $http
+            .get('/api/puzzle')
+            .then(function(res) {
+                deferred.resolve(res.data);
+            }, function(error) {
+                if (error.status === 404) {
+                    deferred.reject('Грешка при свързването! Моля, опитайте пак.');
+                    return;
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         validatePuzzleCode: validatePuzzleCode,
-        createPuzzle: createPuzzle
+        createPuzzle: createPuzzle,
+        getPuzzles: getPuzzles
     }
 }
 puzzleService.$inject = ['$http', '$q'];

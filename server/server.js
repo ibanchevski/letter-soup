@@ -87,6 +87,8 @@ router.put('/collection/:collectionId', TeacherController.editCollection);
 router.delete('/collection/:collectionId', TeacherController.deleteCollection);
 
 router.post('/puzzle', TeacherController.createPuzzle);
+router.get('/puzzle', TeacherController.getPuzzle);
+
 // Use Express router for routing
 app.use('/api', router);
 

@@ -7,8 +7,10 @@ const Q            = require('q');
 const randomstring = require('randomstring');
 
 class Puzzle {
-    constructor (puzzleCode) {
+    constructor (puzzleCode, teacher, puzzleId) {
         this._puzzleCode = puzzleCode;
+        this._teacher = teacher;
+        this._id = puzzleId;
     }
 
     static validatePuzzleToken (code) {
@@ -55,6 +57,34 @@ class Puzzle {
             deferred.resolve();
         });
         
+        return deferred.promise;
+    }
+
+    /**
+     * Get all teacher's puzzles.
+     * If puzzle id is provided the specific puzzle would be returned
+     */
+    getPuzzle() {
+        const deferred = Q.defer();
+        const self = this;
+        const searchQuery = {
+            "teacher": this._teacher
+        };
+        if (this._id !== undefined) {
+            searchQuery._id = this._teacher;
+        }
+        PuzzleModel.find(searchQuery, function(error, puzzles) {
+            if (error) {
+                deferred.reject(error);
+                return;
+            }
+            if (self._id !== undefined) {
+                // User probably wanted one specific puzzle
+                deferred.resolve(puzzles[0]);
+                return;
+            }
+            deferred.resolve(puzzles);
+        }).sort({"creationDate": 'descending'});
         return deferred.promise;
     }
 }

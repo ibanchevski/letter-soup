@@ -6,4 +6,57 @@
             </div>
         </div>
     </div>
+    <div class="row" ng-if="puzzles.error.length > 0">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-warning">
+                {{ puzzles.error }}
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="puzzles.puzzles.length === 0">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="alert alert-warning text-center">
+                Нямате създадени пъзели!
+                <a ui-sref="teacher.createPuzzle" class="alert-link">Създайте пъзел?</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4" ng-repeat="puzzle in puzzles.puzzles">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h2>{{ puzzle.title }}</h2>
+                            <p>Размер: <span class="badge">{{ puzzle.size }}</span></p>
+                            <p>Създаден: <span class="label label-default">{{ puzzle.creationDate | date:'short' }}</span></p>
+                        </div>
+                        <div class="col-md-6 text-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default">Редактирай</button>
+                                <button type="button" class="btn btn-danger">Изтрий</button>
+                            </div>
+                            <h4 class="well well-sm">{{ puzzle.code }}</h4>
+                            <button type="button" class="btn btn-default btn-block">
+                                <i class="fas fa-sync-alt"></i>
+                                Нов код
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12"><hr></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <ul class="list-group">
+                                <li class="list-group-item" ng-repeat="word in puzzle.words">
+                                    {{ $index + 1 }}. {{ word }}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
