@@ -6,7 +6,7 @@ function Puzzle($compile) {
 			saveWordIn: '=wordModel'
 		},
 		replace: true,
-		templateUrl: '/views/solve-puzzle/puzzleMatrix.html',
+		template: '<div id="puzzle-holder"></div>',
 		link: function(scope, elem, attr) {
 			var puzzleHolder = angular.element(document.querySelector('#puzzle-holder'))[0];
 			var selectedLetters = [];

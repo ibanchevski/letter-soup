@@ -52,6 +52,7 @@ router.get('/token/valid', TokenController.validate);
 router.get('/puzzle/:puzzleCode/valid', PuzzleController.validatePuzzleToken);
 
 router.post('/user', UserController.createTempUser);
+router.get('/user/puzzle/:puzzleCode', UserController.getPuzzle);
 
 
 // ============ AUTHENTICATION-REQUIRED ROUTES ============== //

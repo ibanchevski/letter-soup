@@ -1,12 +1,27 @@
-function SolvePuzzleCtrl($scope) {
+function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification) {
 	var vm = this;
-	vm.numberOfWords = 10;
-	vm.puzzle = [
-		['d', 'a', 'j'],
-		['z', 's', 'j'],
-		['d', 'a', 'x']
-	];
+	var puzzleCode = $stateParams.puzzleCode;
+	
+	vm.puzzleCode = puzzleCode;
 	vm.selectedWord = '';
+	
+	vm.numberOfWords = 0;
+	vm.correctWords = 0;
+	vm.teacher = {
+		name: "Пенка Димитрова",
+		school: "Пенчо Славейков 63"
+	}
+	vm.puzzle;
+
+	puzzleService
+		.generatePuzzle(puzzleCode)
+		.then(function(puzzle) {
+			console.log(puzzle);
+			vm.puzzle = puzzle.puzzle;
+			vm.numberOfWords = puzzle.correctWords.length;
+		}, function(error) {
+			Notification.error(error);
+		});
 
 	$scope.$watch(function() {
 		return vm.selectedWord;
@@ -16,5 +31,5 @@ function SolvePuzzleCtrl($scope) {
 		}
 	});
 }
-SolvePuzzleCtrl.$inject = ['$scope'];
+SolvePuzzleCtrl.$inject = ['$scope', '$stateParams', 'puzzleService', 'Notification'];
 angular.module('letterSoup').controller('SolvePuzzleCtrl', SolvePuzzleCtrl);

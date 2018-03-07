@@ -3,8 +3,9 @@ const CollectionModel = require('../models/WordsCollection');
 const PuzzleModel     = require('../models/Puzzle');
 
 // Modules and classes
-const Q            = require('q');
-const randomstring = require('randomstring');
+const Q               = require('q');
+const randomstring    = require('randomstring');
+const MatrixGenerator = require('../modules/MatrixGenerator');
 
 class Puzzle {
     constructor (puzzleCode, teacher, puzzleId) {
@@ -86,6 +87,40 @@ class Puzzle {
             }
             deferred.resolve(puzzles);
         }).sort({"creationDate": 'descending'});
+        return deferred.promise;
+    }
+
+    /**
+     * Generates puzzle by given code
+     * @param {string} code The code of the puzzle
+     */
+    static generatePuzzle(code) {
+        const deferred = Q.defer();
+        let generatedPuzzle;
+        let config = {};
+        PuzzleModel.findOne({ "code": code }, function(error, puzzle) {
+            if (error) {
+                deferred.reject(error);
+                return;
+            }
+            if (puzzle === null) {
+                deferred.reject(new Error('No puzzle found!'));
+                return;
+            }
+            
+            config.h = puzzle.size;
+            config.w = puzzle.size;
+            config.words = puzzle.words;
+            config.fill = true;
+            // Generate puzzle
+            generatedPuzzle = MatrixGenerator.createPuzzle(config);
+            deferred.resolve({
+                puzzle: generatedPuzzle.puzzle,
+                size: puzzle.size,
+                correctWords: generatedPuzzle.placedWords
+            });
+        });
+
         return deferred.promise;
     }
 }

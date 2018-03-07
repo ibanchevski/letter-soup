@@ -1,34 +1,60 @@
-<div class="container">
-	<!-- Page header -->
+<div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<h1>Реши пъзела</h1>
-		</div>
-	</div>
-	<!-- Puzzle details -->
-	<div class="row">
-		<div class="col-md-4">
-			<div class="well">
-				Брой думи: <span class="badge" ng-bind="solve.numberOfWords"></span>
+			<div class="page-header">
+				<h1>
+					Реши пъзел
+					<span class="text-muted">{{ solve.puzzleCode }}</span>
+				</h1>
 			</div>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-md-4">
-			<div class="well">
-				<input type="text" class="form-control" placeholder="Дума от матрицата" ng-model="solve.selectedWord" ng-model-options="{debounce: 500}">
-				<small class="text-muted">Матрицата не работи? Използвай това поле</small class="text-muted">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>Брой думи в пъзела:
+						<span class="label label-info">{{ solve.numberOfWords }}</span>
+					</p>
+					<p>Брой познати думи:
+						<span class="label label-success">{{ solve.correctWords }}</span>
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>Използвай това поле, ако пъзела не работи:</p>
+					<span class="input-group">
+						<input type="text" class="form-control" placeholder="Дума от пъзела">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default">Добави</button>
+						</div>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<p>
+						Учител:
+						<span><strong>{{ solve.teacher.name }}</strong></span>
+					</p>
+					<p>
+						Училище:
+						<span><strong>{{ solve.teacher.school }}</strong></span>
+					</p>
+				</div>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<p>Избрана дума: {{solve.selectedWord}}</p>
-		</div>
+		<div class="col-md-12"><hr></div>
 	</div>
-	<!-- The puzzle matrix -->
-	<div class="row">
-		<div class="col-md-12">
+	<div class="row" ng-if="solve.puzzle">
+		<div class="col-md-10 col-md-offset-1">
 			<puzzle matrix="solve.puzzle" word-model="solve.selectedWord"></puzzle>
 		</div>
 	</div>

@@ -49,10 +49,29 @@ function puzzleService($http, $q) {
         return deferred.promise;
     }
 
+    function generatePuzzle(code) {
+        var deferred = $q.defer();
+
+        $http
+            .get('/api/user/puzzle/' + code)
+            .then(function (res) {
+                deferred.resolve(res.data);
+            }, function (error) {
+                if (error.status === 404) {
+                    deferred.reject('Грешка при свързването! Моля, опитайте пак.');
+                    return;
+                }
+                deferred.reject(error.data);
+            });
+
+        return deferred.promise;
+    }
+    
     return {
         validatePuzzleCode: validatePuzzleCode,
         createPuzzle: createPuzzle,
-        getPuzzles: getPuzzles
+        getPuzzles: getPuzzles,
+        generatePuzzle: generatePuzzle
     }
 }
 puzzleService.$inject = ['$http', '$q'];
