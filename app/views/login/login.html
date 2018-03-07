@@ -21,7 +21,10 @@
                     <form name="loginForm" novalidate ng-submit="loginForm.$invalid || login.login()">
                         <div class="form-group">
                             <label for="email" class="from-control">Email</label>
-                            <input type="email" id="email" class="form-control" ng-model="login.email" required>
+                            <input type="email" name="email" id="email" class="form-control" ng-model="login.email" required>
+                            <p class="text-danger" ng-if="loginForm.email.$invalid && loginForm.email.$touched">
+                                Имейлът не в подходящия формат: example@domain.com
+                            </p>
                         </div>
                         <div class="form-group">
                             <label for="password" class="from-control">Парола</label>
