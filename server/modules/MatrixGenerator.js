@@ -13,7 +13,7 @@ module.exports.createPuzzle = function createPuzzle(config) {
     for (var i = 0; i < config.w; i++) {
         puzzle.push([]);
         for (var j = 0; j < config.h; j++) {
-            puzzle[i].push(' ');
+            puzzle[i].push('');
         }
     }
 
@@ -33,7 +33,7 @@ module.exports.createPuzzle = function createPuzzle(config) {
             // fill with eng letters
             for (var i = 0; i < puzzle.length; i++) {
                 for (var j = 0; j < puzzle[i].length; j++) {
-                    if (puzzle[i][j] === ' ') {
+                    if (puzzle[i][j] === '') {
                         puzzle[i][j] = abc[Math.floor(Math.random() * abc.length)];
                     }
                 }
@@ -42,7 +42,7 @@ module.exports.createPuzzle = function createPuzzle(config) {
             // fill with bg letters
             for (var i = 0; i < puzzle.length; i++) {
                 for (var j = 0; j < puzzle[i].length; j++) {
-                    if (puzzle[i][j] === ' ') {
+                    if (puzzle[i][j] === '') {
                         puzzle[i][j] = bgabc[Math.floor(Math.random() * bgabc.length)];
                     }
                 }
@@ -134,7 +134,7 @@ function findPossibleLocations(word, puzzle, config) {
 function findUsedSpots(row) {
     var usedSpotsIndexes = [];
     for (var cell = 0; cell < row.length; cell++) {
-        if (row[cell] !== ' ') {
+        if (row[cell] !== '') {
             usedSpotsIndexes.push(cell);
         }
     }
