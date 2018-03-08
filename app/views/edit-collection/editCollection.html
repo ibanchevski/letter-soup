@@ -28,7 +28,7 @@
                         <div class="form-group">
                             <label for="addWord">Добави дума в колекцията</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" name="addWord" id="addWord" placeholder="Нова дума" ng-model="edit.newWord" pattern="^[a-zA-Zа-яА-Я0-9-]*$">
+                                <input type="text" class="form-control" name="addWord" id="addWord" placeholder="Нова дума" ng-model="edit.newWord" pattern="^[a-zA-Zа-яА-Я0-9- ]*$">
                                 <span class="input-group-btn">
                                     <button class="btn btn-default" type="button" ng-click="edit.addWord()">Добави</button>
                                 </span>

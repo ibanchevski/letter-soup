@@ -16,6 +16,7 @@ function LoginCtrl($cookies, $state, authenticationService, Notification, puzzle
         vm.password = '';
         vm.rememberMe = false;
         vm.puzzleCode = '';
+        vm.isCodeValid = null;
     };
     
     vm.login = function() {

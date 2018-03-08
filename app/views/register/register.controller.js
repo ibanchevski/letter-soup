@@ -10,20 +10,8 @@ function RegisterCtrl($state, authenticationService, Notification) {
         "school": '',
         "email": '',
         "password": '',
-        "subject": ''
+        // "subject": ''
     };
-
-    var mockSubjects = [
-        {
-            "name": 'Български',
-            "_id": '23xcvadf'
-        },
-        {
-            "name": 'Испански',
-            "_id": '23x324vadf'
-        }
-    ];
-    vm.subjects = mockSubjects;
 
     vm.register = function() {
         authenticationService

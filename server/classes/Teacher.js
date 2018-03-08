@@ -107,5 +107,21 @@ class Teacher {
             });
         return deferred.promise;
     }
+
+    removeCollectionReference(collectionId) {
+        const deferred = Q.defer();
+        if (typeof collectionId !== 'object') {
+            collectionId = ObjectId(collectionId);
+        }
+
+        TeacherModel
+            .updateOne({ "email": this._email }, { $pull: { "wordCollections": collectionId } })
+            .then(function () {
+                deferred.resolve();
+            }, function (error) {
+                deferred.reject(error);
+            });
+        return deferred.promise;
+    }
 }
 module.exports = Teacher;

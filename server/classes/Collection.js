@@ -111,15 +111,20 @@ class Collection {
     */
     deleteCollection() {
         const deferred = Q.defer();
-
+        const teacher = new Teacher(this._teacherEmail);
+        const self = this;
         WordCollectionModel
             .deleteOne({ "teacher": this._teacherEmail, "_id": this._id })
             .then(function () {
                 deferred.resolve();
+                teacher
+                    .removeCollectionReference(self._id)
+                    .then(null, function(error) {
+                        console.log(error);
+                    });
             }, function (error) {
                 deferred.reject(error);
             });
-
         return deferred.promise;
     }
 }
