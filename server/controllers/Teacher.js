@@ -97,6 +97,19 @@ module.exports.createPuzzle = function(req, res) {
         });
 };
 
+module.exports.deletePuzzle = function(req, res) {
+    const puzzleId = req.params.puzzleId;
+    const puzzle = new Puzzle(null, req.decoded.email, puzzleId);
+    puzzle
+        .deletePuzzle()
+        .then(function() {
+            res.send('Пъзелът изтрит успешно!');
+        }, function(error) {
+            console.log(error);
+            res.status(500).send('Грешка при изтриването на пъзела!');
+        });
+};
+
 module.exports.getPuzzle = function(req, res) {
     const puzzle = new Puzzle(null, req.decoded.email);
     puzzle
@@ -108,3 +121,16 @@ module.exports.getPuzzle = function(req, res) {
             res.status(500).send('Грешка при изтеглянето! Моля, опитайте пак.');
         });
 };
+
+module.exports.getPuzzleSolvers = function(req, res) {
+    const puzzleId = req.params.puzzleId;
+    const puzzle = new Puzzle(null, req.decoded.email, puzzleId);
+    puzzle
+        .getPuzzleSolvers()
+        .then(function(solvers) {
+            res.send(solvers);
+        }, function(error) {
+            console.log(error);
+            res.status(500).send('Възникна грешка, моля опитайте пак.');
+        });
+}

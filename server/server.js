@@ -53,7 +53,7 @@ router.get('/puzzle/:puzzleCode/valid', PuzzleController.validatePuzzleToken);
 
 router.post('/user', UserController.createTempUser);
 router.get('/user/puzzle/:puzzleCode', UserController.getPuzzle);
-
+router.post('/user/puzzle', UserController.submitPuzzle);
 
 // ============ AUTHENTICATION-REQUIRED ROUTES ============== //
 // Validate token on every request and save the decoded info (email) in the req object
@@ -92,6 +92,8 @@ router.delete('/collection/:collectionId', TeacherController.deleteCollection);
 
 router.post('/puzzle', TeacherController.createPuzzle);
 router.get('/puzzle', TeacherController.getPuzzle);
+router.delete('/puzzle/:puzzleId', TeacherController.deletePuzzle);
+router.get('/puzzle/:puzzleId/solvers', TeacherController.getPuzzleSolvers);
 
 // Use Express router for routing
 app.use('/api', router);

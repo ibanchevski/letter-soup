@@ -1,6 +1,7 @@
 // Models
-const CollectionModel = require('../models/WordsCollection');
-const PuzzleModel     = require('../models/Puzzle');
+const CollectionModel    = require('../models/WordsCollection');
+const PuzzleModel        = require('../models/Puzzle');
+const PuzzleSolversModel = require('../models/PuzzleSolvers');
 
 // Modules and classes
 const Q               = require('q');
@@ -73,7 +74,7 @@ class Puzzle {
             "teacher": this._teacher
         };
         if (this._id !== undefined) {
-            searchQuery._id = this._teacher;
+            searchQuery._id = this._id;
         }
         PuzzleModel.find(searchQuery, function(error, puzzles) {
             if (error) {
@@ -87,6 +88,18 @@ class Puzzle {
             }
             deferred.resolve(puzzles);
         }).sort({"creationDate": 'descending'});
+        return deferred.promise;
+    }
+
+    deletePuzzle() {
+        const deferred = Q.defer();
+        PuzzleModel.deleteOne({"teacher": this._teacher, "_id": this._id}, function(error) {
+            if (error) {
+                deferred.reject(error);
+                return;
+            }
+            deferred.resolve();
+        });
         return deferred.promise;
     }
 
@@ -121,6 +134,40 @@ class Puzzle {
             });
         });
 
+        return deferred.promise;
+    }
+
+    static submitSolvedPuzzle(puzzleCode, user, solvedWords) {
+        const deferred = Q.defer();
+        new PuzzleSolversModel({
+            puzzleCode: puzzleCode,
+            user: user,
+            solvedWords: solvedWords
+        }).save(function(error) {
+            if (error) {
+                console.log(error);
+            }
+            deferred.resolve();
+        });
+        return deferred.promise;
+    }
+
+    getPuzzleSolvers() {
+        const deferred = Q.defer();
+        this
+            .getPuzzle()
+            .then(function(puzzle) {
+                console.log(puzzle);
+                PuzzleSolversModel.find({ puzzleCode: puzzle.code }, function (error, solvers) {
+                    if (error) {
+                        deferred.reject(error);
+                        return;
+                    }
+                    deferred.resolve(solvers);
+                }).sort({ date: 'descending' });
+            }, function(error) {
+                deferred.reject(error);
+            });
         return deferred.promise;
     }
 }

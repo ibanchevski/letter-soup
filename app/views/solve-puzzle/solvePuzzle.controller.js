@@ -85,7 +85,18 @@ function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification, $coo
 	};
 
 	vm.submitPuzzle = function() {
-		
+		puzzleService
+			.submitPuzzle({
+				code: puzzleCode,
+				correctWords: vm.correctWords,
+				user: student
+			})
+			.then(function() {
+				Notification.success('Пъзелът беше изпратен!');
+				$state.go('login');
+			}, function(error) {
+				console.log(error);
+			});
 	};
 }
 SolvePuzzleCtrl.$inject = ['$scope', '$stateParams', 'puzzleService', 'Notification', '$cookies', '$state'];

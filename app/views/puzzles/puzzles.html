@@ -33,8 +33,12 @@
                         </div>
                         <div class="col-md-6 text-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-default">Редактирай</button>
-                                <button type="button" class="btn btn-danger">Изтрий</button>
+                                <a ui-sref="teacher.puzzleSolvers({ puzzleId: puzzle._id })" class="btn btn-default" uib-tooltip="Ученици, решили пъзела">
+                                    Решили
+                                </a>
+                                <button type="button" class="btn btn-danger" ng-click="puzzles.deletePuzzle(puzzle._id)">
+                                    Изтрий
+                                </button>
                             </div>
                             <h4 class="well well-sm">{{ puzzle.code }}</h4>
                             <button type="button" class="btn btn-default btn-block">

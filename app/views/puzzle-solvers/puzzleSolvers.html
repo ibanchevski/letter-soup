@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1>Ученици, решили пъзела</h1>
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="puzzle.solvers.length === 0">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-warning text-center">
+                Никой не е решил пъзела, все още.
+            </div>
+        </div>
+    </div>
+    <div class="row" ng-if="puzzle.error.length > 0">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-danger">
+                {{ puzzle.error }}
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default" ng-repeat="solver in puzzle.solvers track by $index">
+                <div class="panel-body" style="font-size: 1.5em">
+                    <span class="text-info">({{ solver.puzzleCode }})</span>
+                    <span>{{ solver.user }}</span>
+                    <span class="label label-default">{{ solver.solvedWords }}</span>
+                    <span class="label label-info pull-right">{{ solver.date | date:'short' }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

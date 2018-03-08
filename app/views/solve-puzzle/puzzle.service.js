@@ -67,11 +67,48 @@ function puzzleService($http, $q) {
         return deferred.promise;
     }
     
+    function submitPuzzle(puzzle) {
+        var deferred = $q.defer();
+
+        $http
+            .post('/api/user/puzzle', {
+                puzzleCode: puzzle.code,
+                solvedWords: puzzle.correctWords
+            })
+            .then(function (res) {
+                deferred.resolve(res.data);
+            }, function (error) {
+                deferred.reject(error);
+            });
+
+        return deferred.promise;
+    }
+
+    function deletePuzzle(id) {
+        var deferred = $q.defer();
+
+        $http
+            .delete('/api/puzzle/' + id)
+            .then(function (res) {
+                deferred.resolve(res.data);
+            }, function (error) {
+                if (error.status === 404) {
+                    deferred.reject('Грешка при свързването! Моля, опитайте пак.');
+                    return;
+                }
+                deferred.reject(error);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         validatePuzzleCode: validatePuzzleCode,
         createPuzzle: createPuzzle,
         getPuzzles: getPuzzles,
-        generatePuzzle: generatePuzzle
+        generatePuzzle: generatePuzzle,
+        submitPuzzle: submitPuzzle,
+        deletePuzzle: deletePuzzle
     }
 }
 puzzleService.$inject = ['$http', '$q'];
