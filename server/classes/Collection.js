@@ -2,10 +2,10 @@
 const WordCollectionModel = require('../models/WordsCollection');
 
 // Modules and classes
-const Q = require('q');
-const Teacher = require('./Teacher');
+const Q            = require('q');
+const Teacher      = require('./Teacher');
 const randomstring = require('randomstring');
-
+const moment       = require('moment');
 class Collection {
     constructor(teacherEmail, id) {
         this._teacherEmail = teacherEmail;
@@ -27,7 +27,8 @@ class Collection {
             title: String(title),
             words: words,
             teacher: String(teacherEmail),
-            category: String(category) || ''
+            category: String(category) || '',
+            creationDate: moment().utc().format()
         });
 
         collection.save(function (error, collectionDoc) {

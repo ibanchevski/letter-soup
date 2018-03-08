@@ -7,6 +7,7 @@ const PuzzleSolversModel = require('../models/PuzzleSolvers');
 const Q               = require('q');
 const randomstring    = require('randomstring');
 const MatrixGenerator = require('../modules/MatrixGenerator');
+const moment          = require('moment');
 
 class Puzzle {
     constructor (puzzleCode, teacher, puzzleId) {
@@ -49,7 +50,8 @@ class Puzzle {
             teacher: String(teacher),
             size: Number(size),
             words: words,
-            code: puzzleCode
+            code: puzzleCode,
+            creationDate: moment().utc().format()
         });
 
         pzl.save(function(error) {

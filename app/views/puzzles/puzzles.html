@@ -52,8 +52,12 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="word in puzzle.words">
+                            <button type="button" class="btn btn-default btn-block no-bottom-border" ng-click="collapsedWords = !collapsedWords">
+                                Покажи думите
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="list-group" uib-collapse="!collapsedWords">
+                                <li class="list-group-item no-margin-top" ng-repeat="word in puzzle.words">
                                     {{ $index + 1 }}. {{ word }}
                                 </li>
                             </ul>
