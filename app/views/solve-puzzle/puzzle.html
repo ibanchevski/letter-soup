@@ -14,10 +14,10 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<p>Брой думи в пъзела:
-						<span class="label label-info">{{ solve.numberOfWords }}</span>
+						<h4>{{ solve.numberOfWords }}</h4>
 					</p>
 					<p>Брой познати думи:
-						<span class="label label-success">{{ solve.correctWords }}</span>
+						<h4>{{ solve.correctWords }}</h4>
 					</p>
 				</div>
 			</div>
@@ -25,7 +25,7 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<p>Използвай това поле, ако пъзела не работи:</p>
+					<p>Използвай това поле, ако пъзелът не работи:</p>
 					<span class="input-group">
 						<input type="text" class="form-control" placeholder="Дума от пъзела">
 						<div class="input-group-btn">
@@ -38,9 +38,16 @@
 		<div class="col-md-4">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<button type="button" class="btn btn-success btn-lg btn-block">
+					<button type="button" class="btn btn-success btn-lg btn-block" ng-click="solve.submitPuzzle">
 						Завърши пъзела
 					</button>
+				</div>
+			</div>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<a ui-sref="login" class="btn btn-default btn-lg btn-block">
+						Към началната страница
+					</a>
 				</div>
 			</div>
 		</div>
@@ -48,41 +55,32 @@
 	<div class="row">
 		<div class="col-md-12"><hr></div>
 	</div>
-	<div class="row">
+	<div class="row" ng-hide="solve.correctWords === solve.numberOfWords">
 		<div class="col-md-8 col-md-offset-2">
-			<div class="panel panel-default">
+			<div class="panel panel-default no-selection">
 				<div class="panel-body">
 					<table class="table table-bordered no-margin-bottom no-selection">
 						<tr ng-repeat="row in solve.puzzle track by $index">
-							<td
-							class="text-center"
-							ng-class="{'incorrect-word': word.incorrect === true, 'correct-word': word.incorrect === false}"
-							ng-repeat="word in row track by $index"
-							ng-mousedown="solve.onWordClick(word.letter, $index, $parent.$index)"
-							ng-mouseenter="solve.onWordEnter(word.letter, $index, $parent.$index)"
-							ng-mouseup="solve.onWordUp(word.letter, $index, $parent.$index)">
-								{{word.letter}}
+							<td class="text-center" ng-repeat="letter in row track by $index"
+							ng-class="{'selected-letter': letter.selected, 'correct-letter': letter.correct}"
+							ng-mousedown="solve.onWordClick(letter)" ng-mouseenter="solve.onWordEnter(letter)" ng-mouseup="solve.onWordUp(letter)">
+								{{letter.letter}}
 							</td>
 						</tr>
 					</table>
 				</div>
 			</div>
-			<!-- <table style="border: 2px solid gray; margin-bottom: 20px">
-				<tr ng-repeat="row in solve.puzzle">
-					<td style="font-size: 1.7em; padding: 0 10px; background-color:#94a0a0; border: 1px solid; color: white" ng-repeat="word in row track by $index">{{word}}</td>
-				</tr>
-			</table> -->
 		</div>
 	</div>
-	<!-- <div class="row" ng-repeat="row in solve.puzzle track by $index" style="border: 1px solid">
-		<div class="col-md-1" ng-repeat="word in row track by $index">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					{{word}}
-				</div>
+	<div class="row" ng-if="solve.correctWords === solve.numberOfWords">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="alert alert-success">
+				Поздравления, намерихте всички думи!
+				<a href="" class="alert-link" ng-click="solve.submitPuzzle()">Предай пъзела</a>
 			</div>
 		</div>
-	</div> -->
+	</div>
+
 	<!-- <div class="row" ng-if="solve.puzzle">
 		<div class="col-md-10 col-md-offset-1">
 			<puzzle matrix="solve.puzzle" word-model="solve.selectedWord" was-correct="solve.isWordCorrect"></puzzle>

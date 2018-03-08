@@ -1,7 +1,11 @@
-function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification) {
+function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification, $cookies, $state) {
 	var vm = this;
 	var puzzleCode = $stateParams.puzzleCode;
+	var student = $cookies.get('_u');
 	var correctWords = [];
+	var selectedWord = [];
+	var selectedLetters = [];
+	var dragging = false;
 
 	vm.puzzleCode = puzzleCode;
 	vm.selectedWord = '';
@@ -9,69 +13,80 @@ function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification) {
 	vm.correctWords = 0;
 	vm.puzzle;
 
+	if (student === undefined) {
+		Notification.error('Моля, въведете кода на пъзела отново!');
+		$state.go('login');
+		return;
+	}
+
 	puzzleService
 		.generatePuzzle(puzzleCode)
-		.then(function(puzzle) {
+		.then(function (puzzle) {
 			for (var i = 0; i < puzzle.puzzle.length; i++) {
 				for (var j = 0; j < puzzle.puzzle[i].length; j++) {
 					var letter = puzzle.puzzle[i][j];
-					puzzle.puzzle[i][j] = { letter: letter, incorrect: undefined};
+					puzzle.puzzle[i][j] = {
+						letter: letter,
+						row: i,
+						col: j,
+						selected: false,
+						correct: false
+					};
 				}
 			}
 			vm.puzzle = puzzle.puzzle;
 			correctWords = puzzle.correctWords;
 			vm.numberOfWords = puzzle.correctWords.length;
-			console.log(correctWords);
-		}, function(error) {
+		}, function (error) {
 			Notification.error(error);
 		});
-
-	$scope.$watch(function() {
-		return vm.selectedWord;
-	}, function(newWord, oldWord) {
-		if (newWord) {
-			// TODO: Validate selected word\
-			alert(newWord);
-			vm.isWordCorrect = false;
-		}
-	});
-	var selectedWord = [];
-	var selectedInd = [];
-	var dragging = false;
-	vm.onWordClick = function(word, index, pindex) {
-		selectedWord.length = 0;
-		selectedWord.push(word);
-		selectedInd.push({ row: pindex, col: index })
+	
+	vm.onWordClick = function (letter) {
+		letter.selected = true;
 		dragging = true;
-	}
-	vm.onWordEnter = function(word, index, pindex) {
+		selectedLetters.length = 0;
+		selectedLetters.push(letter);
+	};
+
+	vm.onWordEnter = function (letter) {
 		if (dragging) {
-			selectedWord.push(word);
-			selectedInd.push({ row: pindex, col: index });
+			letter.selected = true;
+			selectedLetters.push(letter);
 		}
-	}
-	vm.onWordUp = function(word, index, pindex) {
+	};
+
+	vm.onWordUp = function (letter) {
+		var word = '';
+		var correctWord;
+		letter.selected = false;
 		dragging = false;
-		var correct = false;
-		var word = selectedWord.join('');
-		console.log(selectedWord.join(''));
+
+		selectedLetters.map(function (letter) {
+			word += letter.letter;
+		});
+
 		for (var i = 0; i < correctWords.length; i++) {
-			if (correctWords[i] === word) {
-				correct = true;
+			if (word === correctWords[i]) {
+				correctWord = true;
 				break;
 			}
 		}
-		// Set word status
-		for (var i = 0; i < selectedInd.length; i++) {
-			var col = selectedInd[i].col;
-			var row = selectedInd[i].row;
-			vm.puzzle[row][col].incorrect = !correct;
-		}
-		if (correct === true) {
+
+		if (correctWord === true) {
 			vm.correctWords++;
+			selectedLetters.map(function (letter) {
+				letter.correct = true;
+			});
+		} else {
+			selectedLetters.map(function (letter) {
+				letter.selected = false;
+			});
 		}
-		selectedInd.length = 0;
-	}
+	};
+
+	vm.submitPuzzle = function() {
+		
+	};
 }
-SolvePuzzleCtrl.$inject = ['$scope', '$stateParams', 'puzzleService', 'Notification'];
+SolvePuzzleCtrl.$inject = ['$scope', '$stateParams', 'puzzleService', 'Notification', '$cookies', '$state'];
 angular.module('letterSoup').controller('SolvePuzzleCtrl', SolvePuzzleCtrl);

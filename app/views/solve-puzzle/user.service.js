@@ -1,8 +1,8 @@
 function userService($q, $http) {
-    function createTempUser(userObj) {
+    function createTempUser(userNames) {
         var deferred = $q.defer();
         $http
-            .post('/api/user', {user: userObj})
+            .post('/api/user', {user: userNames})
             .then(function(resp) {
                 deferred.resolve(resp.data);
             }, function(error) {

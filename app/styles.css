@@ -5,12 +5,31 @@
   -o-user-select: none;
   user-select: none;
 }
-.incorrect-word {
-  background-color: red !important;
+
+.selected-letter {
+  background-color: #C1C1C1;
+  color: white;
 }
-.correct-word {
-  background-color: lightblue;
+
+.correct-letter {
+  background-color: rgba(10, 203, 13, 0.5);
+  color: white;
 }
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+.no-top-border {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.no-bottom-border {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+/* 
 #puzzle-holder {
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -49,31 +68,13 @@ span.selectedLetter {
   background: linear-gradient(#27b6eb, #0f97c9) !important;
   color: white;
   border: 2px solid #d9ebf1;
-}
+} */
 
-.no-margin-bottom {
-    margin-bottom: 0 !important;
-}
-
-.no-top-border {
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
-}
-
-.no-bottom-border {
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-}
-
-span.wrongLetter {
+/* span.wrongLetter {
   background: red !important;
 }
 
 @media (max-width: 740px) {
-  /* #puzzle-holder {
-    float: none;
-  } */
-
   #puzzle-holder span {
       margin: 5px;
   }
@@ -92,4 +93,4 @@ span.wrongLetter {
     line-height: 16px;
     border-radius: 5px;
   }
-}
+} */
