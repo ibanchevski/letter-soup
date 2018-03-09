@@ -6,6 +6,9 @@
   user-select: none;
 }
 
+.letter {
+}
+
 .selected-letter {
   background-color: #C1C1C1;
   color: white;

@@ -61,7 +61,7 @@
 				<div class="panel-body">
 					<table class="table table-bordered no-margin-bottom no-selection">
 						<tr ng-repeat="row in solve.puzzle track by $index">
-							<td class="text-center" ng-repeat="letter in row track by $index"
+							<td class="text-center letter" ng-repeat="letter in row track by $index" width="10px"
 							ng-class="{'selected-letter': letter.selected, 'correct-letter': letter.correct}"
 							ng-mousedown="solve.onWordClick(letter)" ng-mouseenter="solve.onWordEnter(letter)" ng-mouseup="solve.onWordUp(letter)">
 								{{letter.letter}}

@@ -172,5 +172,20 @@ class Puzzle {
             });
         return deferred.promise;
     }
+
+    generatePuzzleCode() {
+        const deferred = Q.defer();
+        const newCode = randomstring.generate(8);
+        
+        PuzzleModel.findByIdAndUpdate(this._id, { $set: { code: newCode } }, function(error) {
+            if (error) {
+                deferred.reject(error);
+                return;
+            }
+            deferred.resolve();
+        });
+
+        return deferred.promise;
+    }
 }
 module.exports = Puzzle;

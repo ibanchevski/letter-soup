@@ -133,4 +133,15 @@ module.exports.getPuzzleSolvers = function(req, res) {
             console.log(error);
             res.status(500).send('Възникна грешка, моля опитайте пак.');
         });
+};
+
+module.exports.generatePuzzleCode = function(req, res) {
+    const puzzle = new Puzzle(null, req.decoded.email, req.params.puzzleId);
+    puzzle
+        .generatePuzzleCode()
+        .then(function() {
+            res.send();
+        }, function(error) {
+            res.send(error);
+        });
 }

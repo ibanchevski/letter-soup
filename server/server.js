@@ -94,7 +94,7 @@ router.post('/puzzle', TeacherController.createPuzzle);
 router.get('/puzzle', TeacherController.getPuzzle);
 router.delete('/puzzle/:puzzleId', TeacherController.deletePuzzle);
 router.get('/puzzle/:puzzleId/solvers', TeacherController.getPuzzleSolvers);
-
+router.put('/puzzle/:puzzleId/code', TeacherController.generatePuzzleCode);
 // Use Express router for routing
 app.use('/api', router);
 

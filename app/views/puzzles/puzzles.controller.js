@@ -15,6 +15,16 @@ function CreatedPuzzlesCtrl(puzzleService, Notification) {
     }
     pullPuzzles();
 
+    vm.generateNewCode = function(puzzleId) {
+        puzzleService
+            .generateNewCode(puzzleId)
+            .then(function() {
+                pullPuzzles();
+            }, function(error) {
+                console.log(error);
+            });
+    };
+
     vm.deletePuzzle = function(puzzleId) {
         if (!confirm("Изтриване на пъзела?")) {
             return;

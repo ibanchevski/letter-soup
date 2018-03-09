@@ -102,13 +102,31 @@ function puzzleService($http, $q) {
         return deferred.promise;
     }
 
+    function generateNewCode(puzzleId) {
+        var deferred = $q.defer();
+        $http
+            .put('/api/puzzle/' + puzzleId + '/code')
+            .then(function (res) {
+                deferred.resolve(res.data);
+            }, function (error) {
+                if (error.status === 404) {
+                    deferred.reject('Грешка при свързването! Моля, опитайте пак.');
+                    return;
+                }
+                deferred.reject(error);
+            });
+
+        return deferred.promise;
+    }
+
     return {
         validatePuzzleCode: validatePuzzleCode,
         createPuzzle: createPuzzle,
         getPuzzles: getPuzzles,
         generatePuzzle: generatePuzzle,
         submitPuzzle: submitPuzzle,
-        deletePuzzle: deletePuzzle
+        deletePuzzle: deletePuzzle,
+        generateNewCode: generateNewCode
     }
 }
 puzzleService.$inject = ['$http', '$q'];
