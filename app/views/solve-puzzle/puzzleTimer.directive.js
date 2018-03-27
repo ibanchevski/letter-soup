@@ -15,40 +15,9 @@ function puzzleTimer($compile, $interval) {
 		link: function(scope, elem, attr) {
 			var timerMinutesEl = angular.element(document.querySelector('#timerMins'))[0];
 			var timerSecondsEl = angular.element(document.querySelector('#timerSecs'))[0];
-			var minutes = scope.timerTime - 1;
-			var seconds = 59;
-
-			if (minutes < 10) {
-				timerMinutesEl.innerHTML = '0' + minutes;	
-			} else {
-				timerMinutesEl.innerHTML = minutes;
-			}
-			timerSecondsEl.innerHTML = seconds;
-			
+			var minutes = scope.timerTime;
+			var seconds = 0;
 			var timer;
-			timer = $interval(function() {
-				seconds--;
-				if (seconds < 0) {
-					minutes--;
-					seconds = 59;
-				}
-				if (minutes === 0) {
-					if (seconds <= 0) {
-						seconds = 0;
-						stopTimer();	
-					}
-				}
-				if (minutes < 10) {
-					timerMinutesEl.innerHTML = '0' + minutes;	
-				} else {
-					timerMinutesEl.innerHTML = minutes;
-				}
-				if (seconds < 10) {
-					timerSecondsEl.innerHTML = '0' + seconds;
-				} else {
-					timerSecondsEl.innerHTML = seconds;
-				}
-			}, 1000);
 
 			function stopTimer() {
 				if (angular.isDefined(timer)) {
@@ -57,6 +26,35 @@ function puzzleTimer($compile, $interval) {
 				}
 				scope.onTimerFinish();
 			}
+			
+			function displayTimer() {
+				if (minutes < 10) {
+					timerMinutesEl.innerHTML = '0' + minutes;	
+				} else {
+					timerMinutesEl.innerHTML = minutes;
+				}
+				if (seconds < 10) {
+					timerSecondsEl.innerHTML = '0' + seconds;	
+				} else {
+					timerSecondsEl.innerHTML = seconds;
+				}
+			}
+			displayTimer();
+
+			// Start the timer
+			timer = $interval(function() {
+				seconds--;
+				if (seconds < 0) {
+					minutes--;
+					seconds = 59;
+				}
+				if (minutes <= 0 && seconds <=0) {
+					minutes = 0;
+					seconds = 0;
+					stopTimer();
+				}
+				displayTimer();
+			}, 1000);
 		}
 	}
 }

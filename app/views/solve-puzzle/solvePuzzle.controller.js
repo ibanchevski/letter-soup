@@ -13,7 +13,7 @@ function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification, $coo
 	vm.correctWords = 0;
 	vm.puzzle;
 	// Mock data //
-	vm.timerTime = 15; // In minutes
+	vm.timerTime = 1; // In minutes
 
 	if (student === undefined) {
 		Notification.error('Моля, въведете кода на пъзела отново!');
