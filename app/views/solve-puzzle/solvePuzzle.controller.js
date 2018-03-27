@@ -12,6 +12,8 @@ function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification, $coo
 	vm.numberOfWords = 0;
 	vm.correctWords = 0;
 	vm.puzzle;
+	// Mock data //
+	vm.timerTime = 15; // In minutes
 
 	if (student === undefined) {
 		Notification.error('Моля, въведете кода на пъзела отново!');
@@ -98,6 +100,10 @@ function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification, $coo
 				console.log(error);
 			});
 	};
+
+	vm.onTimerFinish = function() {
+		alert("Timer finished");
+	}
 }
 SolvePuzzleCtrl.$inject = ['$scope', '$stateParams', 'puzzleService', 'Notification', '$cookies', '$state'];
 angular.module('letterSoup').controller('SolvePuzzleCtrl', SolvePuzzleCtrl);
