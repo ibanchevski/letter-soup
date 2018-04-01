@@ -7,8 +7,10 @@ function PuzzleSolversCtrl(puzzleSolversService, $stateParams) {
 
     puzzleSolversService
         .getSolvers(puzzleId)
-        .then(function(solvers) {
-            vm.solvers = solvers;
+        .then(function(response) {
+            vm.solvers = response.solvers;
+            vm.puzzleTitle = response.puzzle.title;
+            vm.allWords = response.puzzle.words.length;
         }, function(error) {
             vm.error = error;
         });

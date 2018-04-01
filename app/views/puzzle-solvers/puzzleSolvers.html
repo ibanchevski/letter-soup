@@ -13,6 +13,13 @@
             </div>
         </div>
     </div>
+    <div class="row" ng-if="puzzle.solvers === undefined">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="alert alert-info text-center">
+                Изтеглят се...
+            </div>
+        </div>
+    </div>
     <div class="row" ng-if="puzzle.error.length > 0">
         <div class="col-md-8 col-md-offset-2">
             <div class="alert alert-danger">
@@ -29,12 +36,17 @@
                             <th>Пъзел</th>
                             <th>Ученик</th>
                             <th>Познати думи</th>
+                            <th>Всички думи</th>
                             <th>Дата</th>
                         </tr>
                         <tr ng-repeat="solver in puzzle.solvers">
-                            <td>{{solver.puzzleCode}}</td>
+                            <td>
+                                {{puzzle.puzzleTitle}}
+                                <small class="text-muted">({{solver.puzzleCode}})</small>
+                            </td>
                             <td>{{solver.user}}</td>
                             <td>{{solver.solvedWords}}</td>
+                            <td>{{puzzle.allWords}}</td>
                             <td>{{solver.date | date:'medium'}}</td>
                         </tr>
                     </table>

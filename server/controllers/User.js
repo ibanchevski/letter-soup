@@ -28,18 +28,19 @@ module.exports.submitPuzzle = function(req, res) {
     const cookies = CookieParser.parseCookies(req.headers.cookie);
     const puzzleCode = String(req.body.puzzleCode);
     const solvedWordsNumber = Number(req.body.solvedWords);
-    let user;
     const userCookie = cookies.find(function (cookie) {
         return cookie.name === '_u';
     });
+
+    // Get user info from the cookie
     jwt.verify(userCookie.value, config.tokenSecret, function (error, decoded) {
         if (error) {
             res.status(400).send('Възникна грешка! Моля, впишете името си и решете пъзела отначало!');
             return;
         }
-        user = decoded;
+     
         Puzzle
-            .submitSolvedPuzzle(puzzleCode, user, solvedWordsNumber)
+            .submitSolvedPuzzle(puzzleCode, decoded, solvedWordsNumber)
             .then(function() {
                 res.send();
             }, function(error) {

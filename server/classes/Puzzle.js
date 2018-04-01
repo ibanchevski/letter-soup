@@ -144,7 +144,8 @@ class Puzzle {
         new PuzzleSolversModel({
             puzzleCode: puzzleCode,
             user: user,
-            solvedWords: solvedWords
+            solvedWords: solvedWords,
+            date: new Date()
         }).save(function(error) {
             if (error) {
                 console.log(error);
@@ -159,13 +160,15 @@ class Puzzle {
         this
             .getPuzzle()
             .then(function(puzzle) {
-                console.log(puzzle);
                 PuzzleSolversModel.find({ puzzleCode: puzzle.code }, function (error, solvers) {
                     if (error) {
                         deferred.reject(error);
                         return;
                     }
-                    deferred.resolve(solvers);
+                    deferred.resolve({
+                        solvers: solvers,
+                        puzzle: puzzle
+                    });
                 }).sort({ date: 'descending' });
             }, function(error) {
                 deferred.reject(error);

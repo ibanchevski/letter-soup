@@ -127,8 +127,11 @@ module.exports.getPuzzleSolvers = function(req, res) {
     const puzzle = new Puzzle(null, req.decoded.email, puzzleId);
     puzzle
         .getPuzzleSolvers()
-        .then(function(solvers) {
-            res.send(solvers);
+        .then(function(response) {
+            res.send({
+                puzzle: response.puzzle,
+                solvers: response.solvers
+            });
         }, function(error) {
             console.log(error);
             res.status(500).send('Възникна грешка, моля опитайте пак.');
