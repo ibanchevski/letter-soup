@@ -27,28 +27,42 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-md-6">
-                            <h2>{{ puzzle.title }}</h2>
-                            <p>Размер: <span class="badge">{{ puzzle.size }}</span></p>
-                            <p>Създаден: <span class="label label-default">{{ puzzle.creationDate | date:'short' }}</span></p>
+                            <h2>Заглавие:</h2>
+                            <h3>{{ puzzle.title }}</h3>
+                            <p>Размер:
+                                <span class="badge">{{ puzzle.size }}</span>
+                            </p>
+                            <p>Създаден:
+                                <strong>{{ puzzle.creationDate | date:'short' }}</strong>
+                            </p>
                         </div>
-                        <div class="col-md-6 text-center">
-                            <div class="btn-group">
+                        <div class="col-md-6">
+                            <div class="btn-group" style="margin-bottom: 8px">
                                 <a ui-sref="teacher.puzzleSolvers({ puzzleId: puzzle._id })" class="btn btn-default" uib-tooltip="Ученици, решили пъзела">
+                                    <i class="fas fa-eye"></i>
                                     Решили
                                 </a>
                                 <button type="button" class="btn btn-danger" ng-click="puzzles.deletePuzzle(puzzle._id)">
                                     Изтрий
                                 </button>
                             </div>
-                            <h4 class="well well-sm">{{ puzzle.code }}</h4>
-                            <button type="button" class="btn btn-default btn-block" ng-click="puzzles.generateNewCode(puzzle._id)">
-                                <i class="fas fa-sync-alt"></i>
-                                Нов код
-                            </button>
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <h4 class="text-center">{{puzzle.code}}</h4>
+                                </div>
+                                <div class="panel-footer">
+                                    <button type="button" class="btn btn-default btn-block" ng-click="puzzles.generateNewCode(puzzle._id)">
+                                        <i class="fas fa-sync-alt"></i>
+                                        Нов код
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-12"><hr></div>
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">

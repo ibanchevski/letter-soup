@@ -20,17 +20,43 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li ng-class="{'active' : currentNavState === 'newCollection'}">
-                    <a ui-sref=".newCollection">Нова колекция</a>
+                <li class="dropdown" uib-dropdown >
+                    <button type="button" class="btn btn-success navbar-btn" uib-dropdown-toggle style="background-color: transparent; color: green; margin-right: 10px">
+                        Добави
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                        <li>
+                            <a ui-sref=".newCollection">
+                                <i class="far fa-list-alt"></i>
+                                Колекция
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a ui-sref=".createPuzzle">
+                                <i class="fas fa-cube"></i>
+                                Пъзел
+                            </a>
+                        </li>
+                    </ul>
                 </li>
-                <li ng-class="{'active' : currentNavState === 'createPuzzle'}">
-                    <a ui-sref=".createPuzzle">Нов пъзел</a>
-                </li>
-                <li>
-                    <a href="#" ng-click="layout.logOut()">
-                        <i class="fas fa-sign-out-alt"></i>
-                        Изход
+                <li class="dropdown" uib-dropdown>
+                    <a href="" uib-dropdown-toggle>
+                        Учител
+                        <span class="caret"></span>
                     </a>
+                    <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="btn-append-to-body">
+                        <li role="menuitem">
+                            <a href="">
+                                <i class="fas fa-edit"></i>&nbsp; Профил
+                            </a>
+                        </li>
+                        <li role="menuitem">
+                            <a href="" ng-click="layout.logOut()">
+                                <i class="fas fa-sign-out-alt"></i>&nbsp; Изход
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>

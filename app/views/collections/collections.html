@@ -28,21 +28,21 @@
                 <div class="panel-body">
                     <!-- Collection title -->
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-5 text-center">
                             <h3>{{collection.title}}</h3>
                             <h4 class="text-muted">
                                 <span ng-if="!collection.category">Няма категория</span>
                                 {{collection.category}}
                             </h4>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             <div class="btn-group pull-right">
-                                <a ui-sref="teacher.editCollection({collectionId: collection._id})" class="btn btn-default" uib-tooltip="Редакция на колекцията"
-                                    tooltip-append-to-body="true">
+                                <a ui-sref="teacher.editCollection({collectionId: collection._id})" class="btn btn-default">
                                     <i class="fas fa-edit"></i>
+                                    Редакция
                                 </a>
-                                <button class="btn btn-danger" uib-tooltip="Изтрий колекцията" tooltip-append-to-body="true" ng-click="collections.deleteCollection(collection._id, $index)">
-                                    <i class="fas fa-times"></i>
+                                <button class="btn btn-danger" ng-click="collections.deleteCollection(collection._id, $index)">
+                                    Изтрий
                                 </button>
                             </div>
                         </div>
