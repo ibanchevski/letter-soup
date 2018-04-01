@@ -131,7 +131,7 @@ class Puzzle {
             generatedPuzzle = MatrixGenerator.createPuzzle(config);
             deferred.resolve({
                 puzzle: generatedPuzzle.puzzle,
-                size: puzzle.size,
+                title: puzzle.title,
                 correctWords: generatedPuzzle.placedWords
             });
         });

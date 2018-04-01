@@ -19,8 +19,9 @@ function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification, $coo
 		return;
 	}
 
+	// Find the puzzle and generate puzzle matrix
 	puzzleService
-		.generatePuzzle(puzzleCode)
+		.getPuzzleByCode(puzzleCode)
 		.then(function (puzzle) {
 			for (var i = 0; i < puzzle.puzzle.length; i++) {
 				for (var j = 0; j < puzzle.puzzle[i].length; j++) {
@@ -37,6 +38,7 @@ function SolvePuzzleCtrl($scope, $stateParams, puzzleService, Notification, $coo
 			vm.puzzle = puzzle.puzzle;
 			correctWords = puzzle.correctWords;
 			vm.numberOfWords = puzzle.correctWords.length;
+			vm.puzzleTitle = puzzle.title;
 		}, function (error) {
 			Notification.error(error);
 		});

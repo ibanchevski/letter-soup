@@ -2,23 +2,24 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>
-					Реши пъзел
-					<span class="text-muted">{{ solve.puzzleCode }}</span>
-				</h1>
+				<h1>Реши пъзела</h1>
 			</div>
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-4">
+		<div class="col-md-2">
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<p>Брой думи в пъзела:
-						<h4>{{ solve.numberOfWords }}</h4>
-					</p>
-					<p>Брой познати думи:
-						<h4>{{ solve.correctWords }}</h4>
-					</p>
+					<h4>Име: <span class="label label-primary">{{ solve.puzzleTitle }}</span></h4>
+					<h4>Код: <span class="label label-default">{{ solve.puzzleCode }}</span></h4>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<h4>Думи в пъзела: <span class="badge">{{ solve.numberOfWords }}</span></h4>
+					<h4>Познати думи: <span class="badge">{{ solve.correctWords }}</span></h4>
 				</div>
 			</div>
 		</div>
@@ -35,25 +36,22 @@
 				</div>
 			</div> -->
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-3 col-md-offset-5">
 			<div class="panel panel-default">
-				<div class="panel-body">
-					<button type="button" class="btn btn-success btn-lg btn-block" ng-click="solve.submitPuzzle()">
-						Завърши пъзела
-					</button>
-				</div>
-			</div>
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<a ui-sref="login" class="btn btn-default btn-lg btn-block">
-						Към началната страница
-					</a>
+				<div class="panel-body text-center">
+					<div class="btn-group-vertical btn-group-lg">
+						<button type="button" class="btn btn-success" ng-click="solve.submitPuzzle()">
+							<i class="far fa-share-square"></i>
+							Завърши пъзела
+						</button>
+						<a ui-sref="login" class="btn btn-default">
+							<i class="fas fa-home"></i>
+							Към началната страница
+						</a>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-12"><hr></div>
 	</div>
 	<div class="row" ng-hide="solve.correctWords === solve.numberOfWords">
 		<div class="col-md-8 col-md-offset-2">
@@ -80,10 +78,4 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- <div class="row" ng-if="solve.puzzle">
-		<div class="col-md-10 col-md-offset-1">
-			<puzzle matrix="solve.puzzle" word-model="solve.selectedWord" was-correct="solve.isWordCorrect"></puzzle>
-		</div>
-	</div> -->
 </div>

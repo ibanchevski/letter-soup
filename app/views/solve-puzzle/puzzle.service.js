@@ -49,7 +49,7 @@ function puzzleService($http, $q) {
         return deferred.promise;
     }
 
-    function generatePuzzle(code) {
+    function getPuzzleByCode(code) {
         var deferred = $q.defer();
 
         $http
@@ -123,7 +123,7 @@ function puzzleService($http, $q) {
         validatePuzzleCode: validatePuzzleCode,
         createPuzzle: createPuzzle,
         getPuzzles: getPuzzles,
-        generatePuzzle: generatePuzzle,
+        getPuzzleByCode: getPuzzleByCode,
         submitPuzzle: submitPuzzle,
         deletePuzzle: deletePuzzle,
         generateNewCode: generateNewCode

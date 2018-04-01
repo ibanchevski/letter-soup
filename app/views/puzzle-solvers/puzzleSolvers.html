@@ -22,12 +22,22 @@
     </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default" ng-repeat="solver in puzzle.solvers track by $index">
-                <div class="panel-body" style="font-size: 1.5em">
-                    <span class="text-info">({{ solver.puzzleCode }})</span>
-                    <span>{{ solver.user }}</span>
-                    <span class="label label-default">{{ solver.solvedWords }}</span>
-                    <span class="label label-info pull-right">{{ solver.date | date:'short' }}</span>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <table class="table table-bordered no-margin-bottom">
+                        <tr>
+                            <th>Пъзел</th>
+                            <th>Ученик</th>
+                            <th>Познати думи</th>
+                            <th>Дата</th>
+                        </tr>
+                        <tr ng-repeat="solver in puzzle.solvers">
+                            <td>{{solver.puzzleCode}}</td>
+                            <td>{{solver.user}}</td>
+                            <td>{{solver.solvedWords}}</td>
+                            <td>{{solver.date | date:'medium'}}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
