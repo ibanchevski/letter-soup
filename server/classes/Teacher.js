@@ -2,7 +2,7 @@ const TeacherModel = require('../models/Teacher');
 const WordsCollectionModel = require('../models/WordsCollection');
 
 const Q        = require('q');
-const bcrypt   = require('bcrypt');
+const bcrypt   = require('bcryptjs');
 const jwt      = require('jsonwebtoken');
 const ObjectId = require('mongoose').Types.ObjectId;
 
